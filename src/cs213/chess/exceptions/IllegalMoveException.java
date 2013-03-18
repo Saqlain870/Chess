@@ -1,7 +1,7 @@
 package cs213.chess.exceptions;
 
 /**
- * @author bilalq
+ * @author Bilal Quadri
  *
  */
 public class IllegalMoveException extends Exception {
