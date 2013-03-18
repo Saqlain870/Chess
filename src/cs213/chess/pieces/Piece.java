@@ -1,5 +1,8 @@
 package cs213.chess.pieces;
 
+import java.util.ArrayList;
+
+import cs213.chess.exceptions.IllegalCoordsException;
 import cs213.chess.exceptions.IllegalRankFileException;
 import cs213.chess.utils.Helper;
 
@@ -18,6 +21,19 @@ public abstract class Piece {
 		this.color = color;
 		this.rank = rank;
 		this.file = file;
+	}
+	
+	protected Piece(char color, int i, int j) {
+		this.color = color;
+		
+		try {
+			String rankFile = Helper.coordsToRankFile(i, j);
+			this.rank = rankFile.charAt(0);
+			System.out.println("RankFile:" + rankFile);
+			this.file = rankFile.charAt(1);
+		} catch (IllegalCoordsException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public char getColor() {
@@ -51,5 +67,21 @@ public abstract class Piece {
 	public String getIdentifier() {
 		return this.color + "" + this.symbol;
 	}
+	
+	public void setRank(char rank) {
+		this.rank = rank;
+	}
+	
+	public void setFile(int file) {
+		this.file = file;
+	}
+	
+	public abstract ArrayList<String> getValidMoves();
+
+	public abstract boolean canMoveTo(String rankFile);
+
+//	public abstract boolean canMoveTo(char rank, int file);
+	
+//	public abstract boolean canMoveTo(int i, int j);
 	
 }
