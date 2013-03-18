@@ -26,6 +26,8 @@ public class Game {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		Game game = new Game();
+		
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		while(true) {
 			String line;
@@ -37,6 +39,7 @@ public class Game {
 			}
 			
 			System.out.println(line);
+			System.out.println(game.board.toString());
 		}
 	}
 
