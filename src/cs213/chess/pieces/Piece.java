@@ -1,5 +1,6 @@
 package cs213.chess.pieces;
 
+import cs213.chess.exceptions.IllegalRankFileException;
 import cs213.chess.utils.Helper;
 
 /**
@@ -40,7 +41,11 @@ public abstract class Piece {
 	}
 	
 	public int[] getCoords() {
-		return Helper.rankFileToCoords(this.rank, this.file);
+		try {
+			return Helper.rankFileToCoords(this.rank, this.file);
+		} catch (IllegalRankFileException e) {
+			return null;
+		}
 	}
 	
 	public String getIdentifier() {

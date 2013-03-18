@@ -1,5 +1,6 @@
 package cs213.chess.controls;
 
+import cs213.chess.exceptions.IllegalCoordsException;
 import cs213.chess.pieces.Piece;
 import cs213.chess.utils.Helper;
 
@@ -47,7 +48,12 @@ public class Board {
 			for (int j = 0; j < pieces.length; j++) {
 				Piece piece = pieces[i][j];
 				if (piece == null) {
-					display += Helper.getSquareRepresentation(i, j);
+					try {
+						display += Helper.getSquareRepresentation(i, j);
+					} catch (IllegalCoordsException e) {
+						e.printStackTrace();
+						System.out.println("Board is in an invalid state");
+					}
 				} else {
 					display += piece.getIdentifier();
 				}
