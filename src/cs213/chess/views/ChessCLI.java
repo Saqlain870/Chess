@@ -31,7 +31,7 @@ public class ChessCLI {
 			}
 			
 			System.out.println(line);
-			System.out.println(board.toString());
+			System.out.println(board);
 		}
 	}
 

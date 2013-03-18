@@ -1,7 +1,6 @@
 package cs213.chess.controls;
 
 import cs213.chess.exceptions.IllegalCoordsException;
-import cs213.chess.exceptions.IllegalFileRankException;
 import cs213.chess.pieces.*;
 import cs213.chess.utils.Helper;
 
@@ -99,10 +98,12 @@ public class Board {
 	}
 	
 	public boolean isInCheckmate(char turn) {
+		// TODO
 		return false;
 	}
 	
 	public boolean isInStalemate(char turn) {
+		// TODO
 		return false;
 	}
 	
