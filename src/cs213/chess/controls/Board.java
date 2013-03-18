@@ -1,6 +1,7 @@
 package cs213.chess.controls;
 
 import cs213.chess.exceptions.IllegalCoordsException;
+import cs213.chess.exceptions.IllegalFileRankException;
 import cs213.chess.pieces.*;
 import cs213.chess.utils.Helper;
 
@@ -27,6 +28,15 @@ public class Board {
 		// Place black pawns
 		for	(int i = 0; i < this.pieces.length; i++) {
 			this.pieces[6][i] = new Pawn('b', i, 6);
+		}
+		
+		try {
+			// Place kings
+			int[] whiteKing;
+			whiteKing = Helper.fileRankToCoords("e1");
+			this.pieces[whiteKing[1]][whiteKing[0]] = new King('w', 'e', 1);
+		} catch (IllegalFileRankException e) {
+			e.printStackTrace();
 		}
 	}
 

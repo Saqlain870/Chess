@@ -3,7 +3,7 @@ package cs213.chess.pieces;
 import java.util.ArrayList;
 
 import cs213.chess.exceptions.IllegalCoordsException;
-import cs213.chess.exceptions.IllegalRankFileException;
+import cs213.chess.exceptions.IllegalFileRankException;
 import cs213.chess.utils.Helper;
 
 /**
@@ -59,7 +59,7 @@ public abstract class Piece {
 	public int[] getCoords() {
 		try {
 			return Helper.fileRankToCoords(this.file, this.rank);
-		} catch (IllegalRankFileException e) {
+		} catch (IllegalFileRankException e) {
 			return null;
 		}
 	}

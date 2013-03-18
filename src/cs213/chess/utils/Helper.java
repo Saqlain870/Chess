@@ -1,7 +1,7 @@
 package cs213.chess.utils;
 
 import cs213.chess.exceptions.IllegalCoordsException;
-import cs213.chess.exceptions.IllegalRankFileException;
+import cs213.chess.exceptions.IllegalFileRankException;
 
 /**
  * @author Bilal Quadri
@@ -9,19 +9,19 @@ import cs213.chess.exceptions.IllegalRankFileException;
  */
 public class Helper {
 
-	public static int[] fileRankToCoords(String fileRank) throws IllegalRankFileException {
+	public static int[] fileRankToCoords(String fileRank) throws IllegalFileRankException {
 		if(fileRank.length() < 2) {
-			throw new IllegalRankFileException("Invalid rank file.");
+			throw new IllegalFileRankException("Invalid rank file.");
 		}
-		return fileRankToCoords(fileRank.charAt(0), (int) fileRank.charAt(1));
+		return fileRankToCoords(fileRank.charAt(0), Character.getNumericValue(fileRank.charAt(1)));
 	}
 	
-	public static int[] fileRankToCoords(char file, int rank) throws IllegalRankFileException {
+	public static int[] fileRankToCoords(char file, int rank) throws IllegalFileRankException {
 		int i = file - 'a';
 		int j = rank - 1;
 		
 		if (i < 0 || i > 7 || j < 0 || j > 7) {
-			throw new IllegalRankFileException("Invalid rank file.");
+			throw new IllegalFileRankException("File: " + i + " ; Rank: " + j);
 		}
 
 		int[] coords = {i, j};
@@ -50,21 +50,21 @@ public class Helper {
 		}
 	}
 	
-	public static String getSquareRepresentation(char rank, int file) throws IllegalRankFileException {
+	public static String getSquareRepresentation(char rank, int file) throws IllegalFileRankException {
 		int[] coords = fileRankToCoords(rank, file);
 		try {
 			return getSquareRepresentation(coords[0], coords[1]);
 		} catch (IllegalCoordsException e) {
-			throw new IllegalRankFileException("Invalid rank file.");
+			throw new IllegalFileRankException("Invalid rank file.");
 		}
 	}
 	
-	public static String getSquareRepresentation(String rankFile) throws IllegalRankFileException {
+	public static String getSquareRepresentation(String rankFile) throws IllegalFileRankException {
 		int[] coords = fileRankToCoords(rankFile);
 		try {
 			return getSquareRepresentation(coords[0], coords[1]);
 		} catch (IllegalCoordsException e) {
-			throw new IllegalRankFileException("Invalid rank file.");
+			throw new IllegalFileRankException("Invalid rank file.");
 		}
 	}
 }
