@@ -15,7 +15,7 @@ public class Pawn extends Piece {
 	 * @param rank
 	 * @param file
 	 */
-	public Pawn(char color, char rank, int file) {
+	public Pawn(char color, char file, int rank) {
 		super(color, rank, file);
 		this.symbol = 'p';
 	}

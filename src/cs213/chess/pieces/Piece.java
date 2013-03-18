@@ -14,23 +14,23 @@ public abstract class Piece {
 	
 	protected char color;
 	protected char symbol;
-	protected char rank;
-	protected int file;
+	protected char file;
+	protected int rank;
 	
-	protected Piece(char color, char rank, int file) {
+	protected Piece(char color, char file, int rank) {
 		this.color = color;
-		this.rank = rank;
 		this.file = file;
+		this.rank = rank;
 	}
 	
 	protected Piece(char color, int i, int j) {
 		this.color = color;
 		
 		try {
-			String rankFile = Helper.coordsToRankFile(i, j);
+			String rankFile = Helper.coordsTofileRank(i, j);
 			this.rank = rankFile.charAt(0);
-			System.out.println("RankFile:" + rankFile);
 			this.file = rankFile.charAt(1);
+			System.out.println("RankFile:" + rankFile);
 		} catch (IllegalCoordsException e) {
 			e.printStackTrace();
 		}
@@ -44,11 +44,11 @@ public abstract class Piece {
 		return this.symbol;
 	}
 	
-	public char getRank() {
+	public int getRank() {
 		return this.rank;
 	}
 	
-	public int getFile() {
+	public char getFile() {
 		return this.file;
 	}
 	
@@ -58,7 +58,7 @@ public abstract class Piece {
 	
 	public int[] getCoords() {
 		try {
-			return Helper.rankFileToCoords(this.rank, this.file);
+			return Helper.fileRankToCoords(this.file, this.rank);
 		} catch (IllegalRankFileException e) {
 			return null;
 		}
@@ -68,17 +68,17 @@ public abstract class Piece {
 		return this.color + "" + this.symbol;
 	}
 	
-	public void setRank(char rank) {
+	public void setRank(int rank) {
 		this.rank = rank;
 	}
 	
-	public void setFile(int file) {
+	public void setFile(char file) {
 		this.file = file;
 	}
 	
 	public abstract ArrayList<String> getValidMoves();
 
-	public abstract boolean canMoveTo(String rankFile);
+	public abstract boolean canMoveTo(String fileRank);
 
 //	public abstract boolean canMoveTo(char rank, int file);
 	

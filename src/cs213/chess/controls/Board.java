@@ -23,6 +23,11 @@ public class Board {
 		for	(int i = 0; i < this.pieces.length; i++) {
 			this.pieces[1][i] = new Pawn('w', i, 1);
 		}
+		
+		// Place black pawns
+		for	(int i = 0; i < this.pieces.length; i++) {
+			this.pieces[6][i] = new Pawn('b', i, 6);
+		}
 	}
 
 	
@@ -49,7 +54,8 @@ public class Board {
 	public String toString() {
 		String display = "";
 		
-		for (int i = 0; i < pieces.length; i++) {
+		for (int i = pieces.length - 1; i >= 0; i--) {
+			String row = "";
 			for (int j = 0; j < pieces.length; j++) {
 				Piece piece = pieces[i][j];
 				if (piece == null) {
