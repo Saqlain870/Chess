@@ -20,24 +20,37 @@ public class Board {
 	public Board() {
 		this.pieces = new Piece[8][8];
 		
-		// Place white pawns
+		// Place pawns
 		for	(int i = 0; i < this.pieces.length; i++) {
 			this.pieces[1][i] = new Pawn('w', i, 1);
-		}
-		
-		// Place black pawns
-		for	(int i = 0; i < this.pieces.length; i++) {
 			this.pieces[6][i] = new Pawn('b', i, 6);
 		}
 		
-		try {
-			// Place kings
-			int[] whiteKing;
-			whiteKing = Helper.fileRankToCoords("e1");
-			this.pieces[whiteKing[1]][whiteKing[0]] = new King('w', 'e', 1);
-		} catch (IllegalFileRankException e) {
-			e.printStackTrace();
-		}
+		// Place kings
+		this.pieces[0][4] = new King('w', 'e', 1);
+		this.pieces[7][4] = new King('b', 'e', 8);
+		
+		// Place queens
+		this.pieces[0][3] = new Queen('w', 'd', 1);
+		this.pieces[7][3] = new Queen('b', 'd', 1);
+		
+		// Place bishops
+		this.pieces[0][2] = new Bishop('w', 'c', '1');
+		this.pieces[0][5] = new Bishop('w', 'f', '1');
+		this.pieces[7][2] = new Bishop('b', 'c', '8');
+		this.pieces[7][5] = new Bishop('b', 'f', '8');
+		
+		// Place knights
+		this.pieces[0][1] = new Knight('w', 'b', '1');
+		this.pieces[0][6] = new Knight('w', 'g', '1');
+		this.pieces[7][1] = new Knight('b', 'b', '8');
+		this.pieces[7][6] = new Knight('b', 'g', '8');
+		
+		// Place rooks
+		this.pieces[0][0] = new Rook('w', 'a', '1');
+		this.pieces[0][7] = new Rook('w', 'h', '1');
+		this.pieces[7][0] = new Rook('b', 'a', '8');
+		this.pieces[7][7] = new Rook('b', 'h', '8');
 	}
 
 	
@@ -65,7 +78,6 @@ public class Board {
 		String display = "";
 		
 		for (int i = pieces.length - 1; i >= 0; i--) {
-			String row = "";
 			for (int j = 0; j < pieces.length; j++) {
 				Piece piece = pieces[i][j];
 				if (piece == null) {
