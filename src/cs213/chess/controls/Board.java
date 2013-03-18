@@ -1,7 +1,7 @@
 package cs213.chess.controls;
 
 import cs213.chess.exceptions.IllegalCoordsException;
-import cs213.chess.pieces.Piece;
+import cs213.chess.pieces.*;
 import cs213.chess.utils.Helper;
 
 /**
@@ -18,6 +18,11 @@ public class Board {
 	 */
 	public Board() {
 		this.pieces = new Piece[8][8];
+		
+		// Place white pawns
+		for	(int i = 0; i < this.pieces.length; i++) {
+			this.pieces[1][i] = new Pawn('w', i, 1);
+		}
 	}
 
 	
@@ -63,6 +68,14 @@ public class Board {
 		}
 		
 		return display;
+	}
+	
+	public boolean isInCheckmate(char turn) {
+		return false;
+	}
+	
+	public boolean isInStalemate(char turn) {
+		return false;
 	}
 	
 }
