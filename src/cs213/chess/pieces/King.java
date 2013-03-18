@@ -20,6 +20,18 @@ public class King extends Piece {
 		this.symbol = 'K';
 	}
 
+	/**
+	 * Constructor for King.
+	 * 
+	 * @param color
+	 * @param i
+	 * @param j
+	 */
+	public King(char color, int i, int j) {
+		super(color, i, j);
+		this.symbol = 'K';
+	}
+	
 	/* (non-Javadoc)
 	 * @see cs213.chess.pieces.Piece#getValidMoves()
 	 */

@@ -9,12 +9,26 @@ import java.util.ArrayList;
 public class Rook extends Piece {
 
 	/**
+	 * Constructor for Rook.
+	 * 
 	 * @param color
 	 * @param rank
 	 * @param file
 	 */
 	public Rook(char color, char rank, int file) {
 		super(color, rank, file);
+		this.symbol = 'R';
+	}
+	
+	/**
+	 * Constructor for Rook.
+	 * 
+	 * @param color
+	 * @param i
+	 * @param j
+	 */
+	public Rook(char color, int i, int j) {
+		super(color, i, j);
 		this.symbol = 'R';
 	}
 

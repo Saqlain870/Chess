@@ -9,12 +9,26 @@ import java.util.ArrayList;
 public class Bishop extends Piece {
 
 	/**
+	 * Constructor for Bishop.
+	 * 
 	 * @param color
 	 * @param rank
 	 * @param file
 	 */
 	public Bishop(char color, char rank, int file) {
 		super(color, rank, file);
+		this.symbol = 'B';
+	}
+	
+	/**
+	 * Constructor for Bishop.
+	 * 
+	 * @param color
+	 * @param i
+	 * @param j
+	 */
+	public Bishop(char color, int i, int j) {
+		super(color, i, j);
 		this.symbol = 'B';
 	}
 

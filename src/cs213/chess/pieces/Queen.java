@@ -9,12 +9,26 @@ import java.util.ArrayList;
 public class Queen extends Piece {
 
 	/**
+	 * Constructor for Queen.
+	 * 
 	 * @param color
 	 * @param rank
 	 * @param file
 	 */
 	public Queen(char color, char rank, int file) {
 		super(color, rank, file);
+		this.symbol = 'Q';
+	}
+	
+	/**
+	 * Constructor for Queen.
+	 * 
+	 * @param color
+	 * @param i
+	 * @param j
+	 */
+	public Queen(char color, int i, int j) {
+		super(color, i, j);
 		this.symbol = 'Q';
 	}
 

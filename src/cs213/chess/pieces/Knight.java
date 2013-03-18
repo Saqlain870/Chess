@@ -9,12 +9,26 @@ import java.util.ArrayList;
 public class Knight extends Piece {
 
 	/**
+	 * Constructor for Knight.
+	 * 
 	 * @param color
 	 * @param rank
 	 * @param file
 	 */
 	public Knight(char color, char rank, int file) {
 		super(color, rank, file);
+		this.symbol = 'N';
+	}
+	
+	/**
+	 * Constructor for Knight.
+	 * 
+	 * @param color
+	 * @param i
+	 * @param j
+	 */
+	public Knight(char color, int i, int j) {
+		super(color, i, j);
 		this.symbol = 'N';
 	}
 

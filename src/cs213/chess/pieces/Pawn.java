@@ -24,8 +24,8 @@ public class Pawn extends Piece {
 	 * Constructor for Pawn.
 	 * 
 	 * @param color
-	 * @param rank
-	 * @param file
+	 * @param i
+	 * @param j
 	 */
 	public Pawn(char color, int i, int j) {
 		super(color, i, j);
