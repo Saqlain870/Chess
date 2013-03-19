@@ -21,6 +21,15 @@ public class Game {
 		this.turn = 'w';
 	}
 	
+	/**
+	 * Gets the character representing which player's turn it is.
+	 * 
+	 * @return 'w' if it's white's turn and 'b' if it's black's turn.
+	 */
+	public char getTurn() {
+		return this.turn;
+	}
+	
 
 	/**
 	 * Gets the board of this game.
