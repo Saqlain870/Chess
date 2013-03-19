@@ -91,8 +91,10 @@ public class Board {
 				}
 				display += " ";
 			}
+			display += " " + (i + 1);
 			display += "\n";
 		}
+		display += " a  b  c  d  e  f  g  h\n";
 		
 		return display;
 	}
