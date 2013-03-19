@@ -22,6 +22,7 @@ public class ChessCLI {
 		
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		while(true) {
+			System.out.println();
 			String line;
 			try {
 				line = reader.readLine();
@@ -32,6 +33,7 @@ public class ChessCLI {
 			
 			System.out.println(line);
 			System.out.println(board);
+			System.out.print(game.getTurn() == 'w' ? "White's move: " : "Black's move: ");
 		}
 	}
 

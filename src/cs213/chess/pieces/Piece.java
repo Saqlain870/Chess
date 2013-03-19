@@ -30,7 +30,6 @@ public abstract class Piece {
 			String rankFile = Helper.coordsTofileRank(i, j);
 			this.rank = rankFile.charAt(0);
 			this.file = rankFile.charAt(1);
-			System.out.println("RankFile:" + rankFile);
 		} catch (IllegalCoordsException e) {
 			e.printStackTrace();
 		}
