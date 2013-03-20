@@ -33,6 +33,7 @@ public class ChessCLI {
 			System.out.println();
 			System.out.println(board);
 			System.out.print(game.getTurn() == 'w' ? "White's move: " : "Black's move: ");
+			game.changeTurn();
 		}
 	}
 

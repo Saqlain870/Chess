@@ -30,6 +30,13 @@ public class Game {
 		return this.turn;
 	}
 	
+	/**
+	 * Change the turn from white to black and vice versa.
+	 */
+	public void changeTurn() {
+		this.turn = (this.turn == 'w') ? 'b' : 'w';
+	}
+	
 
 	/**
 	 * Gets the board of this game.
