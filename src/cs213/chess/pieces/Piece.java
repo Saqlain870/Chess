@@ -18,17 +18,20 @@ public abstract class Piece {
 	protected char file;
 	protected int rank;
 	protected Board board;
+	protected int timesMoved;
 	
 	protected Piece(char color, char file, int rank, Board board) {
 		this.color = color;
 		this.file = file;
 		this.rank = rank;
 		this.board = board;
+		this.timesMoved = 0;
 	}
 	
 	protected Piece(char color, int i, int j, Board board) {
 		this.color = color;
 		this.board = board;
+		this.timesMoved = 0;
 		
 		try {
 			String rankFile = Helper.coordsTofileRank(i, j);
@@ -53,6 +56,25 @@ public abstract class Piece {
 	
 	public char getFile() {
 		return this.file;
+	}
+	
+	/**
+	 * @return The number of times this piece has moved on the board.
+	 */
+	public int getTimesMoved() {
+		return this.timesMoved;
+	}
+	
+	/**
+	 * @return Whether or not this piece has ever moved on the board.
+	 */
+	public boolean hasMoved() {
+		return this.timesMoved == 0;
+	}
+	
+	public int incrementTimesMoved() {
+		this.timesMoved++;
+		return this.timesMoved;
 	}
 	
 	public String getRankFile(){

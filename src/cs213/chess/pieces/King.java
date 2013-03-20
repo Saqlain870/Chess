@@ -74,11 +74,49 @@ public class King extends Piece {
 	}
 
 	public boolean canKingSideCastle() {
-		return false;
+		// The king cannot have moved or be in check
+		if (this.hasMoved() || this.isInCheck()) {
+			return false;
+		}
+		
+		// The spaces in between the king and the rook must be empty
+		if (this.board.getPieceAt("f" + this.rank) != null 
+				|| this.board.getPieceAt("g" + this.rank) != null) {
+			return false;
+		}
+		
+		// TODO: Check if f1/f8 and g1/g8 are in danger
+		
+		// The rook must be at the end and it cannot have moved
+		Piece rook = this.board.getPieceAt("h" + this.rank);
+		if (rook == null || rook.getClass() != Rook.class || rook.hasMoved()) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 	public boolean canQueenSideCastle() {
-		return false;
+		// The king cannot have moved or be in check
+		if (this.hasMoved() || this.isInCheck()) {
+			return false;
+		}
+		
+		// The spaces in between the king and the rook must be empty
+		if (this.board.getPieceAt("b" + this.rank) != null 
+				|| this.board.getPieceAt("c" + this.rank) != null
+				|| this.board.getPieceAt("d" + this.rank) != null) {
+			return false;
+		}
+		
+		// TODO: Check if the c1/c8 and d1/d8 are in danger
+		
+		Piece rook = this.board.getPieceAt("a" + this.rank);
+		if (rook == null || rook.getClass() != Rook.class || rook.hasMoved()) {
+			return false;
+		}
+		
+		return true;
 	}
 
 }
