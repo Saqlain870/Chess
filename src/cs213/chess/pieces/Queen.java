@@ -14,12 +14,12 @@ public class Queen extends Piece {
 	 * Constructor for Queen.
 	 * 
 	 * @param color
-	 * @param rank
 	 * @param file
+	 * @param rank
 	 * @param board
 	 */
-	public Queen(char color, char rank, int file, Board board) {
-		super(color, rank, file, board);
+	public Queen(char color, char file, int rank, Board board) {
+		super(color, file, rank, board);
 		this.symbol = 'Q';
 	}
 	
@@ -43,15 +43,6 @@ public class Queen extends Piece {
 	public ArrayList<String> getValidMoves() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see cs213.chess.pieces.Piece#canMoveTo(java.lang.String)
-	 */
-	@Override
-	public boolean canMoveTo(String rankFile) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }

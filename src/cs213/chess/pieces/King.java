@@ -14,12 +14,12 @@ public class King extends Piece {
 	 * Constructor for King.
 	 * 
 	 * @param color
-	 * @param rank
 	 * @param file
+	 * @param rank
 	 * @param board
 	 */
-	public King(char color, char rank, int file, Board board) {
-		super(color, rank, file, board);
+	public King(char color, char file, int rank, Board board) {
+		super(color, file, rank, board);
 		this.symbol = 'K';
 	}
 
@@ -45,12 +45,11 @@ public class King extends Piece {
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see cs213.chess.pieces.Piece#canMoveTo(java.lang.String)
-	 */
-	@Override
-	public boolean canMoveTo(String rankFile) {
-		// TODO Auto-generated method stub
+	public boolean canKingSideCastle() {
+		return false;
+	}
+	
+	public boolean canQueenSideCastle() {
 		return false;
 	}
 

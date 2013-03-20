@@ -14,12 +14,12 @@ public class Rook extends Piece {
 	 * Constructor for Rook.
 	 * 
 	 * @param color
-	 * @param rank
 	 * @param file
+	 * @param rank
 	 * @param board
 	 */
-	public Rook(char color, char rank, int file, Board board) {
-		super(color, rank, file, board);
+	public Rook(char color, char file, int rank, Board board) {
+		super(color, file, rank, board);
 		this.symbol = 'R';
 	}
 	

@@ -14,8 +14,8 @@ public class Pawn extends Piece {
 	 * Constructor for Pawn.
 	 * 
 	 * @param color
-	 * @param rank
 	 * @param file
+	 * @param rank
 	 * @param board
 	 */
 	public Pawn(char color, char file, int rank, Board board) {
@@ -43,15 +43,6 @@ public class Pawn extends Piece {
 	public ArrayList<String> getValidMoves() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see cs213.chess.pieces.Piece#canMoveTo(java.lang.String)
-	 */
-	@Override
-	public boolean canMoveTo(String rankFile) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }
