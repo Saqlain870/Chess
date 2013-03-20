@@ -50,8 +50,8 @@ public class Helper {
 		}
 	}
 	
-	public static String getSquareRepresentation(char rank, int file) throws IllegalFileRankException {
-		int[] coords = fileRankToCoords(rank, file);
+	public static String getSquareRepresentation(char file, int rank) throws IllegalFileRankException {
+		int[] coords = fileRankToCoords(file, rank);
 		try {
 			return getSquareRepresentation(coords[0], coords[1]);
 		} catch (IllegalCoordsException e) {
@@ -59,8 +59,8 @@ public class Helper {
 		}
 	}
 	
-	public static String getSquareRepresentation(String rankFile) throws IllegalFileRankException {
-		int[] coords = fileRankToCoords(rankFile);
+	public static String getSquareRepresentation(String fileRank) throws IllegalFileRankException {
+		int[] coords = fileRankToCoords(fileRank);
 		try {
 			return getSquareRepresentation(coords[0], coords[1]);
 		} catch (IllegalCoordsException e) {

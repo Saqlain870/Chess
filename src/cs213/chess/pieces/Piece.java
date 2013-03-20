@@ -34,9 +34,9 @@ public abstract class Piece {
 		this.timesMoved = 0;
 		
 		try {
-			String rankFile = Helper.coordsTofileRank(i, j);
-			this.rank = rankFile.charAt(0);
-			this.file = rankFile.charAt(1);
+			String fileRank = Helper.coordsTofileRank(i, j);
+			this.file = fileRank.charAt(0);
+			this.rank = Character.getNumericValue(fileRank.charAt(1));
 		} catch (IllegalCoordsException e) {
 			e.printStackTrace();
 		}
