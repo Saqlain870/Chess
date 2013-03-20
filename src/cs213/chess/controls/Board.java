@@ -1,6 +1,7 @@
 package cs213.chess.controls;
 
 import cs213.chess.exceptions.IllegalCoordsException;
+import cs213.chess.exceptions.IllegalFileRankException;
 import cs213.chess.exceptions.IllegalMoveException;
 import cs213.chess.pieces.*;
 import cs213.chess.utils.Helper;
@@ -114,6 +115,22 @@ public class Board {
 	public boolean isInStalemate(char turn) {
 		// TODO
 		return false;
+	}
+	
+	/**
+	 * Gets the piece at a given File and Rank. 
+	 * 
+	 * @param fileRank The position of the piece you want to retrieve.
+	 * @return The piece at this position, or null if it is empty.
+	 */
+	public Piece getPieceAt(String fileRank) {
+		int[] coords;
+		try {
+			coords = Helper.fileRankToCoords(fileRank);
+		} catch (IllegalFileRankException e) {
+			return null;
+		}
+		return this.pieces[coords[1]][coords[0]];
 	}
 	
 	public void movePiece(String origin, String destination) throws IllegalMoveException {
