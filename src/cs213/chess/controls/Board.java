@@ -11,6 +11,8 @@ import cs213.chess.utils.Helper;
 public class Board {
 
 	private Piece[][] pieces;
+	private King whiteKing;
+	private King blackKing;
 	
 	
 	/**
@@ -26,8 +28,10 @@ public class Board {
 		}
 		
 		// Place kings
-		this.pieces[0][4] = new King('w', 'e', 1);
-		this.pieces[7][4] = new King('b', 'e', 8);
+		this.whiteKing = new King('w', 'e', 1);
+		this.blackKing = new King('b', 'e', 8);
+		this.pieces[0][4] = this.whiteKing;
+		this.pieces[7][4] = this.blackKing;
 		
 		// Place queens
 		this.pieces[0][3] = new Queen('w', 'd', 1);
