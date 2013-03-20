@@ -1,6 +1,7 @@
 package cs213.chess.controls;
 
 import cs213.chess.exceptions.IllegalCoordsException;
+import cs213.chess.exceptions.IllegalMoveException;
 import cs213.chess.pieces.*;
 import cs213.chess.utils.Helper;
 
@@ -23,37 +24,37 @@ public class Board {
 		
 		// Place pawns
 		for	(int i = 0; i < this.pieces.length; i++) {
-			this.pieces[1][i] = new Pawn('w', i, 1);
-			this.pieces[6][i] = new Pawn('b', i, 6);
+			this.pieces[1][i] = new Pawn('w', i, 1, this);
+			this.pieces[6][i] = new Pawn('b', i, 6, this);
 		}
 		
 		// Place kings
-		this.whiteKing = new King('w', 'e', 1);
-		this.blackKing = new King('b', 'e', 8);
+		this.whiteKing = new King('w', 'e', 1, this);
+		this.blackKing = new King('b', 'e', 8, this);
 		this.pieces[0][4] = this.whiteKing;
 		this.pieces[7][4] = this.blackKing;
 		
 		// Place queens
-		this.pieces[0][3] = new Queen('w', 'd', 1);
-		this.pieces[7][3] = new Queen('b', 'd', 1);
+		this.pieces[0][3] = new Queen('w', 'd', 1, this);
+		this.pieces[7][3] = new Queen('b', 'd', 1, this);
 		
 		// Place bishops
-		this.pieces[0][2] = new Bishop('w', 'c', '1');
-		this.pieces[0][5] = new Bishop('w', 'f', '1');
-		this.pieces[7][2] = new Bishop('b', 'c', '8');
-		this.pieces[7][5] = new Bishop('b', 'f', '8');
+		this.pieces[0][2] = new Bishop('w', 'c', '1', this);
+		this.pieces[0][5] = new Bishop('w', 'f', '1', this);
+		this.pieces[7][2] = new Bishop('b', 'c', '8', this);
+		this.pieces[7][5] = new Bishop('b', 'f', '8', this);
 		
 		// Place knights
-		this.pieces[0][1] = new Knight('w', 'b', '1');
-		this.pieces[0][6] = new Knight('w', 'g', '1');
-		this.pieces[7][1] = new Knight('b', 'b', '8');
-		this.pieces[7][6] = new Knight('b', 'g', '8');
+		this.pieces[0][1] = new Knight('w', 'b', '1', this);
+		this.pieces[0][6] = new Knight('w', 'g', '1', this);
+		this.pieces[7][1] = new Knight('b', 'b', '8', this);
+		this.pieces[7][6] = new Knight('b', 'g', '8', this);
 		
 		// Place rooks
-		this.pieces[0][0] = new Rook('w', 'a', '1');
-		this.pieces[0][7] = new Rook('w', 'h', '1');
-		this.pieces[7][0] = new Rook('b', 'a', '8');
-		this.pieces[7][7] = new Rook('b', 'h', '8');
+		this.pieces[0][0] = new Rook('w', 'a', '1', this);
+		this.pieces[0][7] = new Rook('w', 'h', '1', this);
+		this.pieces[7][0] = new Rook('b', 'a', '8', this);
+		this.pieces[7][7] = new Rook('b', 'h', '8', this);
 	}
 
 	
@@ -89,6 +90,7 @@ public class Board {
 					} catch (IllegalCoordsException e) {
 						e.printStackTrace();
 						System.out.println("Board is in an invalid state");
+						System.exit(1);
 					}
 				} else {
 					display += piece.getIdentifier();
@@ -103,6 +105,7 @@ public class Board {
 		return display;
 	}
 	
+	
 	public boolean isInCheckmate(char turn) {
 		// TODO
 		return false;
@@ -111,6 +114,10 @@ public class Board {
 	public boolean isInStalemate(char turn) {
 		// TODO
 		return false;
+	}
+	
+	public void movePiece(String origin, String destination) throws IllegalMoveException {
+		// TODO
 	}
 	
 }

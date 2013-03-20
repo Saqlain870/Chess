@@ -2,6 +2,8 @@ package cs213.chess.pieces;
 
 import java.util.ArrayList;
 
+import cs213.chess.controls.Board;
+
 /**
  * @author Bilal Quadri
  *
@@ -14,9 +16,10 @@ public class Pawn extends Piece {
 	 * @param color
 	 * @param rank
 	 * @param file
+	 * @param board
 	 */
-	public Pawn(char color, char file, int rank) {
-		super(color, rank, file);
+	public Pawn(char color, char file, int rank, Board board) {
+		super(color, rank, file, board);
 		this.symbol = 'p';
 	}
 	
@@ -26,9 +29,10 @@ public class Pawn extends Piece {
 	 * @param color
 	 * @param i
 	 * @param j
+	 * @param board
 	 */
-	public Pawn(char color, int i, int j) {
-		super(color, i, j);
+	public Pawn(char color, int i, int j, Board board) {
+		super(color, i, j, board);
 		this.symbol = 'p';
 	}
 

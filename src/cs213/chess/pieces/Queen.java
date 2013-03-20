@@ -2,6 +2,8 @@ package cs213.chess.pieces;
 
 import java.util.ArrayList;
 
+import cs213.chess.controls.Board;
+
 /**
  * @author Bilal Quadri
  *
@@ -14,9 +16,10 @@ public class Queen extends Piece {
 	 * @param color
 	 * @param rank
 	 * @param file
+	 * @param board
 	 */
-	public Queen(char color, char rank, int file) {
-		super(color, rank, file);
+	public Queen(char color, char rank, int file, Board board) {
+		super(color, rank, file, board);
 		this.symbol = 'Q';
 	}
 	
@@ -26,9 +29,10 @@ public class Queen extends Piece {
 	 * @param color
 	 * @param i
 	 * @param j
+	 * @param board
 	 */
-	public Queen(char color, int i, int j) {
-		super(color, i, j);
+	public Queen(char color, int i, int j, Board board) {
+		super(color, i, j, board);
 		this.symbol = 'Q';
 	}
 
