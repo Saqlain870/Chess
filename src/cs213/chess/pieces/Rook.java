@@ -3,6 +3,8 @@ package cs213.chess.pieces;
 import java.util.ArrayList;
 
 import cs213.chess.controls.Board;
+import cs213.chess.exceptions.IllegalFileRankException;
+import cs213.chess.utils.Helper;
 
 /**
  * @author Bilal Quadri
@@ -41,17 +43,22 @@ public class Rook extends Piece {
 	 */
 	@Override
 	public ArrayList<String> getValidMoves() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see cs213.chess.pieces.Piece#canMoveTo(java.lang.String)
-	 */
-	@Override
-	public boolean canMoveTo(String rankFile) {
-		// TODO Auto-generated method stub
-		return false;
+		ArrayList<String> validMoves = new ArrayList<String>();
+		int[] coords;
+		int i, j;
+		
+		try {
+			coords = this.getCoords();
+			i = coords[0];
+			j = coords[1];
+			System.out.println("FileRank of this piece:" + this.getFileRank());
+			System.out.println("The i and j: " + i + ", " + j);
+		} catch (IllegalFileRankException e) {
+			System.out.println("Exception in rook");
+			return validMoves;
+		}
+		
+		return validMoves;
 	}
 
 }

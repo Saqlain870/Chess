@@ -77,16 +77,12 @@ public abstract class Piece {
 		return this.timesMoved;
 	}
 	
-	public String getRankFile(){
-		return this.rank + "" + this.file;
+	public String getFileRank(){
+		return this.file + "" + this.rank;
 	}
 	
-	public int[] getCoords() {
-		try {
-			return Helper.fileRankToCoords(this.file, this.rank);
-		} catch (IllegalFileRankException e) {
-			return null;
-		}
+	public int[] getCoords() throws IllegalFileRankException {
+		return Helper.fileRankToCoords(this.file + "" + this.rank);
 	}
 	
 	public String getIdentifier() {

@@ -20,6 +20,7 @@ public class ChessCLI {
 		Game game = new Game();
 		Board board = game.getBoard();
 		
+		board.getPieceAt("a1").getValidMoves();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		while(true) {
 			String line;

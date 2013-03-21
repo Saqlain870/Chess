@@ -40,22 +40,22 @@ public class Board {
 		this.pieces[7][3] = new Queen('b', 'd', 1, this);
 		
 		// Place bishops
-		this.pieces[0][2] = new Bishop('w', 'c', '1', this);
-		this.pieces[0][5] = new Bishop('w', 'f', '1', this);
-		this.pieces[7][2] = new Bishop('b', 'c', '8', this);
-		this.pieces[7][5] = new Bishop('b', 'f', '8', this);
+		this.pieces[0][2] = new Bishop('w', 'c', 1, this);
+		this.pieces[0][5] = new Bishop('w', 'f', 1, this);
+		this.pieces[7][2] = new Bishop('b', 'c', 8, this);
+		this.pieces[7][5] = new Bishop('b', 'f', 8, this);
 		
 		// Place knights
-		this.pieces[0][1] = new Knight('w', 'b', '1', this);
-		this.pieces[0][6] = new Knight('w', 'g', '1', this);
-		this.pieces[7][1] = new Knight('b', 'b', '8', this);
-		this.pieces[7][6] = new Knight('b', 'g', '8', this);
+		this.pieces[0][1] = new Knight('w', 'b', 1, this);
+		this.pieces[0][6] = new Knight('w', 'g', 1, this);
+		this.pieces[7][1] = new Knight('b', 'b', 8, this);
+		this.pieces[7][6] = new Knight('b', 'g', 8, this);
 		
 		// Place rooks
-		this.pieces[0][0] = new Rook('w', 'a', '1', this);
-		this.pieces[0][7] = new Rook('w', 'h', '1', this);
-		this.pieces[7][0] = new Rook('b', 'a', '8', this);
-		this.pieces[7][7] = new Rook('b', 'h', '8', this);
+		this.pieces[0][0] = new Rook('w', 'a', 1, this);
+		this.pieces[0][7] = new Rook('w', 'h', 1, this);
+		this.pieces[7][0] = new Rook('b', 'a', 8, this);
+		this.pieces[7][7] = new Rook('b', 'h', 8, this);
 	}
 
 	
@@ -63,7 +63,7 @@ public class Board {
 	 * @return the pieces
 	 */
 	public Piece[][] getPieces() {
-		return pieces;
+		return this.pieces;
 	}
 
 	
@@ -135,6 +135,10 @@ public class Board {
 	
 	public void movePiece(String origin, String destination) throws IllegalMoveException {
 		// TODO
+	}
+	
+	public Piece getPieceAt(int i, int j) {
+		return this.pieces[i][j];
 	}
 	
 }
