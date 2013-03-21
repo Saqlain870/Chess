@@ -3,6 +3,7 @@ package cs213.chess.pieces;
 import java.util.ArrayList;
 
 import cs213.chess.controls.Board;
+import cs213.chess.exceptions.IllegalCoordsException;
 import cs213.chess.exceptions.IllegalFileRankException;
 import cs213.chess.utils.Helper;
 
@@ -45,20 +46,37 @@ public class Rook extends Piece {
 	public ArrayList<String> getValidMoves() {
 		ArrayList<String> validMoves = new ArrayList<String>();
 		int[] coords;
-		int i, j;
+		int x, y;
 		
 		try {
 			coords = this.getCoords();
-			i = coords[0];
-			j = coords[1];
-			System.out.println("FileRank of this piece:" + this.getFileRank());
-			System.out.println("The i and j: " + i + ", " + j);
+			x = coords[1];
+			y = coords[0];
+			Piece target = this.board.getPieceAt(x, y);
+			System.out.println(target);
+			System.out.println(x + ", " + y);
+			System.out.println(target.getFileRank());
+			try {
+				System.out.println(Helper.coordsTofileRank(y,  x));
+			} catch (IllegalCoordsException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// Detect vertical moves
+//			for (int i = x; i < 8; i++) {
+//				if (this.board.getPieceAt(i,  y) == null) {
+//					this.validMoves.add(Helper.coordsTofileRank(i, y));
+//				}
+//			}
+//			for (int i = x; i >= 0; i--) {
+//				
+//			}
 		} catch (IllegalFileRankException e) {
 			System.out.println("Exception in rook");
-			return validMoves;
 		}
-		
 		return validMoves;
+		
 	}
 
 }

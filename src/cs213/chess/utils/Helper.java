@@ -28,7 +28,7 @@ public class Helper {
 		return coords;
 	}
 	
-	public static String coordsTofileRank(int i, int j) throws IllegalCoordsException {
+	public static String coordsToFileRank(int i, int j) throws IllegalCoordsException {
 		if (i < 0 || j < 0 || i > 7 || j > 7) {
 			throw new IllegalCoordsException("Invalid coordinates passed");
 		}

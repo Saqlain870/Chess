@@ -42,6 +42,14 @@ public abstract class Piece {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return this.getIdentifier();
+	}
+
 	public char getColor() {
 		return this.color;
 	}
