@@ -123,14 +123,10 @@ public class Board {
 	 * 
 	 * @param fileRank The position of the piece you want to retrieve.
 	 * @return The piece at this position, or null if it is empty.
+	 * @throws IllegalFileRankException 
 	 */
-	public Piece getPieceAt(String fileRank) {
-		int[] coords;
-		try {
-			coords = Helper.filerankToCoords(fileRank);
-		} catch (IllegalFileRankException e) {
-			return null;
-		}
+	public Piece getPieceAt(String fileRank) throws IllegalFileRankException {
+		int[] coords = Helper.filerankToCoords(fileRank);
 		return this.pieces[coords[0]][coords[1]];
 	}
 	
@@ -140,6 +136,10 @@ public class Board {
 	
 	public Piece getPieceAt(int i, int j) {
 		return this.pieces[i][j];
+	}
+	
+	public static boolean isInBounds(char file, int rank) {
+		return (file >= 'a' && file <= 'h' && rank >= 1 && rank <= 8);
 	}
 	
 }

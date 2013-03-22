@@ -35,6 +35,45 @@ public abstract class Piece {
 		return this.getIdentifier();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + color;
+		result = prime * result + file;
+		result = prime * result + rank;
+		result = prime * result + symbol;
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		} else if (obj == null) {
+			return false;
+		} else if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Piece other = (Piece) obj;
+		if (color != other.color) {
+			return false;
+		} else if (file != other.file) {
+			return false;
+		} else if (rank != other.rank) {
+			return false;
+		} else if (symbol != other.symbol) {
+			return false;
+		}
+		return true;
+	}
+
 	public char getColor() {
 		return this.color;
 	}

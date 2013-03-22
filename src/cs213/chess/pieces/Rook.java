@@ -3,6 +3,7 @@ package cs213.chess.pieces;
 import java.util.ArrayList;
 
 import cs213.chess.controls.Board;
+import cs213.chess.exceptions.IllegalFileRankException;
 
 /**
  * @author Bilal Quadri
@@ -35,7 +36,12 @@ public class Rook extends Piece {
 		for (char f = this.file; f < 'h'; f++) {
 			char next = (char) (((int) f) + 1);
 			String move = next + "" + this.rank;
-			Piece square = this.board.getPieceAt(move);
+			Piece square;
+			try {
+				square = this.board.getPieceAt(move);
+			} catch (IllegalFileRankException e) {
+				continue;
+			}
 			if (square == null) {
 				// Square is empty
 				validMoves.add(move);
@@ -52,7 +58,12 @@ public class Rook extends Piece {
 		for (char f = this.file; f > 'a'; f--) {
 			char prev = (char) (((int) f) - 1);
 			String move = prev + "" + this.rank;
-			Piece square = this.board.getPieceAt(move);
+			Piece square;
+			try {
+				square = this.board.getPieceAt(move);
+			} catch (IllegalFileRankException e) {
+				continue;
+			}
 			if (square == null) {
 				// Square is empty
 				validMoves.add(move);
@@ -68,7 +79,12 @@ public class Rook extends Piece {
 		//Detect vertical moves going up
 		for (int i = this.rank; i < 8; i++) {
 			String move = this.file + "" + (i + 1);
-			Piece square = this.board.getPieceAt(move);
+			Piece square;
+			try {
+				square = this.board.getPieceAt(move);
+			} catch (IllegalFileRankException e) {
+				continue;
+			}
 			if (square == null) {
 				// Square is empty
 				validMoves.add(move);
@@ -84,7 +100,12 @@ public class Rook extends Piece {
 		//Detect vertical moves going down
 		for (int i = this.rank; i > 1; i--) {
 			String move = this.file + "" + (i - 1);
-			Piece square = this.board.getPieceAt(move);
+			Piece square;
+			try {
+				square = this.board.getPieceAt(move);
+			} catch (IllegalFileRankException e) {
+				continue;
+			}
 			if (square == null) {
 				// Square is empty
 				validMoves.add(move);

@@ -3,6 +3,7 @@ package cs213.chess.pieces;
 import java.util.ArrayList;
 
 import cs213.chess.controls.Board;
+import cs213.chess.exceptions.IllegalFileRankException;
 
 /**
  * @author Bilal Quadri
@@ -66,17 +67,21 @@ public class King extends Piece {
 			return false;
 		}
 		
-		// The spaces in between the king and the rook must be empty
-		if (this.board.getPieceAt("f" + this.rank) != null 
-				|| this.board.getPieceAt("g" + this.rank) != null) {
-			return false;
-		}
+		try {
+			// The spaces in between the king and the rook must be empty
+			if (this.board.getPieceAt("f" + this.rank) != null 
+					|| this.board.getPieceAt("g" + this.rank) != null) {
+				return false;
+			}
 		
-		// TODO: Check if f1/f8 and g1/g8 are in danger
+			// TODO: Check if f1/f8 and g1/g8 are in danger
 		
-		// The rook must be at the end and it cannot have moved
-		Piece rook = this.board.getPieceAt("h" + this.rank);
-		if (rook == null || rook.getClass() != Rook.class || rook.hasMoved()) {
+			// The rook must be at the end and it cannot have moved
+			Piece rook = this.board.getPieceAt("h" + this.rank);
+			if (rook == null || rook.getClass() != Rook.class || rook.hasMoved()) {
+				return false;
+			}
+		} catch (IllegalFileRankException e) {
 			return false;
 		}
 		
@@ -90,16 +95,20 @@ public class King extends Piece {
 		}
 		
 		// The spaces in between the king and the rook must be empty
-		if (this.board.getPieceAt("b" + this.rank) != null 
-				|| this.board.getPieceAt("c" + this.rank) != null
-				|| this.board.getPieceAt("d" + this.rank) != null) {
-			return false;
-		}
-		
-		// TODO: Check if the c1/c8 and d1/d8 are in danger
-		
-		Piece rook = this.board.getPieceAt("a" + this.rank);
-		if (rook == null || rook.getClass() != Rook.class || rook.hasMoved()) {
+		try {
+			if (this.board.getPieceAt("b" + this.rank) != null 
+					|| this.board.getPieceAt("c" + this.rank) != null
+					|| this.board.getPieceAt("d" + this.rank) != null) {
+				return false;
+			}
+			
+			// TODO: Check if the c1/c8 and d1/d8 are in danger
+			
+			Piece rook = this.board.getPieceAt("a" + this.rank);
+			if (rook == null || rook.getClass() != Rook.class || rook.hasMoved()) {
+				return false;
+			}
+		} catch (IllegalFileRankException e) {
 			return false;
 		}
 		

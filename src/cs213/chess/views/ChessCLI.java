@@ -7,11 +7,10 @@ import java.util.ArrayList;
 
 import cs213.chess.controls.Board;
 import cs213.chess.controls.Game;
-import cs213.chess.exceptions.IllegalFileRankException;
 import cs213.chess.pieces.Piece;
 
 /**
- * @author bilalq
+ * @author Bilal Quadri
  *
  */
 public class ChessCLI {
@@ -19,6 +18,7 @@ public class ChessCLI {
 	/**
 	 * @param args
 	 */
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		Game game = new Game();
 		Board board = game.getBoard();
