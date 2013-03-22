@@ -45,38 +45,74 @@ public class Rook extends Piece {
 	@Override
 	public ArrayList<String> getValidMoves() {
 		ArrayList<String> validMoves = new ArrayList<String>();
-		int[] coords;
-		int x, y;
-		
-		try {
-			coords = this.getCoords();
-			x = coords[1];
-			y = coords[0];
-			Piece target = this.board.getPieceAt(x, y);
-			System.out.println(target);
-			System.out.println(x + ", " + y);
-			System.out.println(target.getFileRank());
-			try {
-				System.out.println(Helper.coordsTofileRank(y,  x));
-			} catch (IllegalCoordsException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			
-			// Detect vertical moves
-//			for (int i = x; i < 8; i++) {
-//				if (this.board.getPieceAt(i,  y) == null) {
-//					this.validMoves.add(Helper.coordsTofileRank(i, y));
-//				}
-//			}
-//			for (int i = x; i >= 0; i--) {
-//				
-//			}
-		} catch (IllegalFileRankException e) {
-			System.out.println("Exception in rook");
+		// Detect horizontal moves going right
+		for (char f = this.file; f < 'h'; f++) {
+			char next = (char) (((int) f) + 1);
+			String move = next + "" + this.rank;
+			Piece square = this.board.getPieceAt(move);
+			if (square == null) {
+				// Square is empty
+				validMoves.add(move);
+			} else {
+				if (this.color != square.getColor()){
+					// Square has enemy piece
+					validMoves.add(move);
+				}
+				break;
+			}
 		}
-		return validMoves;
 		
+		// Detect horizontal moves going left
+		for (char f = this.file; f > 'a'; f--) {
+			char prev = (char) (((int) f) - 1);
+			String move = prev + "" + this.rank;
+			Piece square = this.board.getPieceAt(move);
+			if (square == null) {
+				// Square is empty
+				validMoves.add(move);
+			} else {
+				if (this.color != square.getColor()){
+					// Square has enemy piece
+					validMoves.add(move);
+				}
+				break;
+			}
+		}
+			
+		//Detect vertical moves going up
+		for (int i = this.rank; i < 8; i++) {
+			String move = this.file + "" + (i + 1);
+			Piece square = this.board.getPieceAt(move);
+			if (square == null) {
+				// Square is empty
+				validMoves.add(move);
+			} else {
+				if (this.color != square.getColor()){
+					// Square has enemy piece
+					validMoves.add(move);
+				}
+				break;
+			}
+		}
+		
+		//Detect vertical moves going down
+		for (int i = this.rank; i > 1; i--) {
+			String move = this.file + "" + (i - 1);
+			Piece square = this.board.getPieceAt(move);
+			if (square == null) {
+				// Square is empty
+				validMoves.add(move);
+			} else {
+				if (this.color != square.getColor()){
+					// Square has enemy piece
+					validMoves.add(move);
+				}
+				break;
+			}
+		}
+		
+		return validMoves;
 	}
 
 }
