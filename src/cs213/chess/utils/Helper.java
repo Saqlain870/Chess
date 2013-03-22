@@ -9,14 +9,14 @@ import cs213.chess.exceptions.IllegalFileRankException;
  */
 public class Helper {
 
-	public static int[] fileRankToCoords(String fileRank) throws IllegalFileRankException {
+	public static int[] filerankToCoords(String fileRank) throws IllegalFileRankException {
 		if(fileRank.length() < 2) {
 			throw new IllegalFileRankException("Invalid rank file.");
 		}
-		return fileRankToCoords(fileRank.charAt(0), Character.getNumericValue(fileRank.charAt(1)));
+		return filerankToCoords(fileRank.charAt(0), Character.getNumericValue(fileRank.charAt(1)));
 	}
 	
-	public static int[] fileRankToCoords(char file, int rank) throws IllegalFileRankException {
+	public static int[] filerankToCoords(char file, int rank) throws IllegalFileRankException {
 		int i = file - 'a';
 		int j = rank - 1;
 		
@@ -24,7 +24,7 @@ public class Helper {
 			throw new IllegalFileRankException("File: " + i + " ; Rank: " + j);
 		}
 
-		int[] coords = {i, j};
+		int[] coords = {j, i};
 		return coords;
 	}
 	
@@ -33,7 +33,7 @@ public class Helper {
 			throw new IllegalCoordsException("Invalid coordinates passed");
 		}
 		
-		String fileRank = ((char) ('a' + i)) + "" + (j + 1);
+		String fileRank = ((char) ('a' + j)) + "" + (i + 1);
 		return fileRank;
 	}
 	
@@ -51,18 +51,18 @@ public class Helper {
 	}
 	
 	public static String getSquareRepresentation(char file, int rank) throws IllegalFileRankException {
-		int[] coords = fileRankToCoords(file, rank);
+		int[] coords = filerankToCoords(file, rank);
 		try {
-			return getSquareRepresentation(coords[0], coords[1]);
+			return getSquareRepresentation(coords[1], coords[0]);
 		} catch (IllegalCoordsException e) {
 			throw new IllegalFileRankException("Invalid rank file.");
 		}
 	}
 	
 	public static String getSquareRepresentation(String fileRank) throws IllegalFileRankException {
-		int[] coords = fileRankToCoords(fileRank);
+		int[] coords = filerankToCoords(fileRank);
 		try {
-			return getSquareRepresentation(coords[0], coords[1]);
+			return getSquareRepresentation(coords[1], coords[0]);
 		} catch (IllegalCoordsException e) {
 			throw new IllegalFileRankException("Invalid rank file.");
 		}

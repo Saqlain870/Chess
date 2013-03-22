@@ -23,18 +23,6 @@ public class Queen extends Piece {
 		this.symbol = 'Q';
 	}
 	
-	/**
-	 * Constructor for Queen.
-	 * 
-	 * @param color
-	 * @param i
-	 * @param j
-	 * @param board
-	 */
-	public Queen(char color, int i, int j, Board board) {
-		super(color, i, j, board);
-		this.symbol = 'Q';
-	}
 
 	/* (non-Javadoc)
 	 * @see cs213.chess.pieces.Piece#getValidMoves()

@@ -23,18 +23,6 @@ public class Knight extends Piece {
 		this.symbol = 'N';
 	}
 	
-	/**
-	 * Constructor for Knight.
-	 * 
-	 * @param color
-	 * @param i
-	 * @param j
-	 * @param board
-	 */
-	public Knight(char color, int i, int j, Board board) {
-		super(color, i, j, board);
-		this.symbol = 'N';
-	}
 
 	/* (non-Javadoc)
 	 * @see cs213.chess.pieces.Piece#getValidMoves()

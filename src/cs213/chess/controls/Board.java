@@ -25,8 +25,9 @@ public class Board {
 		
 		// Place pawns
 		for	(int i = 0; i < this.pieces.length; i++) {
-			this.pieces[1][i] = new Pawn('w', i, 1, this);
-			this.pieces[6][i] = new Pawn('b', i, 6, this);
+			char file = (char) (((int) 'a') + i);
+			this.pieces[1][i] = new Pawn('w', file, 1, this);
+			this.pieces[6][i] = new Pawn('b', file, 6, this);
 		}
 		
 		// Place kings
@@ -126,11 +127,11 @@ public class Board {
 	public Piece getPieceAt(String fileRank) {
 		int[] coords;
 		try {
-			coords = Helper.fileRankToCoords(fileRank);
+			coords = Helper.filerankToCoords(fileRank);
 		} catch (IllegalFileRankException e) {
 			return null;
 		}
-		return this.pieces[coords[1]][coords[0]];
+		return this.pieces[coords[0]][coords[1]];
 	}
 	
 	public void movePiece(String origin, String destination) throws IllegalMoveException {

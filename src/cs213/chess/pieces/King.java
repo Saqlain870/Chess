@@ -26,19 +26,6 @@ public class King extends Piece {
 		this.setInCheck(false);
 	}
 
-	/**
-	 * Constructor for King.
-	 * 
-	 * @param color
-	 * @param i
-	 * @param j
-	 * @param board
-	 */
-	public King(char color, int i, int j, Board board) {
-		super(color, i, j, board);
-		this.symbol = 'K';
-		this.setInCheck(false);
-	}
 	
 	/**
 	 * @return Whether or not this king is in check.

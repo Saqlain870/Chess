@@ -19,22 +19,10 @@ public class Pawn extends Piece {
 	 * @param board
 	 */
 	public Pawn(char color, char file, int rank, Board board) {
-		super(color, rank, file, board);
+		super(color, file, rank, board);
 		this.symbol = 'p';
 	}
 	
-	/**
-	 * Constructor for Pawn.
-	 * 
-	 * @param color
-	 * @param i
-	 * @param j
-	 * @param board
-	 */
-	public Pawn(char color, int i, int j, Board board) {
-		super(color, i, j, board);
-		this.symbol = 'p';
-	}
 
 	/* (non-Javadoc)
 	 * @see cs213.chess.pieces.Piece#getValidMoves()

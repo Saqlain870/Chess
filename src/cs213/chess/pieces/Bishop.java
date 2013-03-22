@@ -23,18 +23,6 @@ public class Bishop extends Piece {
 		this.symbol = 'B';
 	}
 	
-	/**
-	 * Constructor for Bishop.
-	 * 
-	 * @param color
-	 * @param i
-	 * @param j
-	 * @param board
-	 */
-	public Bishop(char color, int i, int j, Board board) {
-		super(color, i, j, board);
-		this.symbol = 'B';
-	}
 
 	/* (non-Javadoc)
 	 * @see cs213.chess.pieces.Piece#getValidMoves()
