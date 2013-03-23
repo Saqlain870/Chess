@@ -32,7 +32,6 @@ public class Knight extends Piece {
 	public ArrayList<String> getValidMoves() {
 		ArrayList<String> validMoves = new ArrayList<String>();
 		String move;
-		Piece square;
 		
 		int downTwoRanks = this.rank - 2;
 		int downRank = this.rank - 1;
