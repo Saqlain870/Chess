@@ -13,7 +13,7 @@ public class Queen extends Piece {
 
 	/**
 	 * Constructor for Queen.
-	 * 
+	 *
 	 * @param color
 	 * @param file
 	 * @param rank
@@ -23,7 +23,7 @@ public class Queen extends Piece {
 		super(color, file, rank, board);
 		this.symbol = 'Q';
 	}
-	
+
 
 	/* (non-Javadoc)
 	 * @see cs213.chess.pieces.Piece#getValidMoves()
@@ -31,9 +31,9 @@ public class Queen extends Piece {
 	@Override
 	public ArrayList<String> getValidMoves() {
 		ArrayList<String> validMoves = new ArrayList<String>();
-			
+
 		// BEGIN ROOK LIKE MOVEMENT
-		
+
 		// Detect horizontal moves going right
 		for (char f = this.file; f < 'h'; f++) {
 			char next = (char) (((int) f) + 1);
@@ -55,7 +55,7 @@ public class Queen extends Piece {
 				break;
 			}
 		}
-		
+
 		// Detect horizontal moves going left
 		for (char f = this.file; f > 'a'; f--) {
 			char prev = (char) (((int) f) - 1);
@@ -77,7 +77,7 @@ public class Queen extends Piece {
 				break;
 			}
 		}
-			
+
 		//Detect vertical moves going up
 		for (int i = this.rank; i < 8; i++) {
 			String move = this.file + "" + (i + 1);
@@ -98,7 +98,7 @@ public class Queen extends Piece {
 				break;
 			}
 		}
-		
+
 		//Detect vertical moves going down
 		for (int i = this.rank; i > 1; i--) {
 			String move = this.file + "" + (i - 1);
@@ -119,17 +119,17 @@ public class Queen extends Piece {
 				break;
 			}
 		}
-		
+
 		// END ROOK LIKE MOVEMENT
-		
+
 		// BEGIN BISHOP LIKE MOVEMENT
-		
+
 		// Flags to determine if valid moves can exist in that direction
 		boolean upUp = true;
 		boolean upDown = true;
 		boolean downUp = true;
 		boolean downDown = true;
-		
+
 		for (int i = 1; this.rank + i < 9; i++) {
 			char downFile = (char) (((int) this.file) - i);
 			char upFile = (char) (((int) this.file) + i);
@@ -137,7 +137,7 @@ public class Queen extends Piece {
 			int upRank = this.rank + i;
 			Piece square;
 			String move;
-			
+
 			if (upUp) {
 				move = upFile + "" + upRank;
 				try {
@@ -154,7 +154,7 @@ public class Queen extends Piece {
 					upUp = false;
 				}
 			}
-			
+
 			if (upDown) {
 				move = upFile + "" + downRank;
 				try {
@@ -171,7 +171,7 @@ public class Queen extends Piece {
 					upDown = false;
 				}
 			}
-			
+
 			if (downUp) {
 				move = downFile + "" + upRank;
 				try {
@@ -188,7 +188,7 @@ public class Queen extends Piece {
 					downUp = false;
 				}
 			}
-			
+
 			if (downDown) {
 				move = downFile + "" + downRank;
 				try {
@@ -206,10 +206,10 @@ public class Queen extends Piece {
 				}
 			}
 		}
-		
+
 		// END BISHOP LIKE MOVEMENT
-		
-		
+
+
 		return validMoves;
 	}
 

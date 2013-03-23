@@ -13,7 +13,7 @@ public class Rook extends Piece {
 
 	/**
 	 * Constructor for Rook.
-	 * 
+	 *
 	 * @param color
 	 * @param file
 	 * @param rank
@@ -23,7 +23,7 @@ public class Rook extends Piece {
 		super(color, file, rank, board);
 		this.symbol = 'R';
 	}
-	
+
 
 	/* (non-Javadoc)
 	 * @see cs213.chess.pieces.Piece#getValidMoves()
@@ -31,7 +31,7 @@ public class Rook extends Piece {
 	@Override
 	public ArrayList<String> getValidMoves() {
 		ArrayList<String> validMoves = new ArrayList<String>();
-			
+
 		// Detect horizontal moves going right
 		for (char f = this.file; f < 'h'; f++) {
 			char next = (char) (((int) f) + 1);
@@ -53,7 +53,7 @@ public class Rook extends Piece {
 				break;
 			}
 		}
-		
+
 		// Detect horizontal moves going left
 		for (char f = this.file; f > 'a'; f--) {
 			char prev = (char) (((int) f) - 1);
@@ -75,7 +75,7 @@ public class Rook extends Piece {
 				break;
 			}
 		}
-			
+
 		//Detect vertical moves going up
 		for (int i = this.rank; i < 8; i++) {
 			String move = this.file + "" + (i + 1);
@@ -96,7 +96,7 @@ public class Rook extends Piece {
 				break;
 			}
 		}
-		
+
 		//Detect vertical moves going down
 		for (int i = this.rank; i > 1; i--) {
 			String move = this.file + "" + (i - 1);
@@ -117,7 +117,7 @@ public class Rook extends Piece {
 				break;
 			}
 		}
-		
+
 		return validMoves;
 	}
 

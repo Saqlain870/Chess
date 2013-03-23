@@ -13,7 +13,7 @@ public class Bishop extends Piece {
 
 	/**
 	 * Constructor for Bishop.
-	 * 
+	 *
 	 * @param color
 	 * @param file
 	 * @param rank
@@ -23,7 +23,7 @@ public class Bishop extends Piece {
 		super(color, file, rank, board);
 		this.symbol = 'B';
 	}
-	
+
 
 	/* (non-Javadoc)
 	 * @see cs213.chess.pieces.Piece#getValidMoves()
@@ -31,13 +31,13 @@ public class Bishop extends Piece {
 	@Override
 	public ArrayList<String> getValidMoves() {
 		ArrayList<String> validMoves = new ArrayList<String>();
-		
+
 		// Flags to determine if valid moves can exist in that direction
 		boolean upUp = true;
 		boolean upDown = true;
 		boolean downUp = true;
 		boolean downDown = true;
-		
+
 		for (int i = 1; this.rank + i < 9; i++) {
 			char downFile = (char) (((int) this.file) - i);
 			char upFile = (char) (((int) this.file) + i);
@@ -45,7 +45,7 @@ public class Bishop extends Piece {
 			int upRank = this.rank + i;
 			Piece square;
 			String move;
-			
+
 			if (upUp) {
 				move = upFile + "" + upRank;
 				try {
@@ -62,7 +62,7 @@ public class Bishop extends Piece {
 					upUp = false;
 				}
 			}
-			
+
 			if (upDown) {
 				move = upFile + "" + downRank;
 				try {
@@ -79,7 +79,7 @@ public class Bishop extends Piece {
 					upDown = false;
 				}
 			}
-			
+
 			if (downUp) {
 				move = downFile + "" + upRank;
 				try {
@@ -96,7 +96,7 @@ public class Bishop extends Piece {
 					downUp = false;
 				}
 			}
-			
+
 			if (downDown) {
 				move = downFile + "" + downRank;
 				try {
@@ -114,7 +114,7 @@ public class Bishop extends Piece {
 				}
 			}
 		}
-		
+
 		return validMoves;
 	}
 

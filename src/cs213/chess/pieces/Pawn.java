@@ -13,7 +13,7 @@ public class Pawn extends Piece {
 
 	/**
 	 * Constructor for Pawn.
-	 * 
+	 *
 	 * @param color
 	 * @param file
 	 * @param rank
@@ -23,7 +23,7 @@ public class Pawn extends Piece {
 		super(color, file, rank, board);
 		this.symbol = 'p';
 	}
-	
+
 
 	/* (non-Javadoc)
 	 * @see cs213.chess.pieces.Piece#getValidMoves()
@@ -33,10 +33,10 @@ public class Pawn extends Piece {
 		ArrayList<String> validMoves = new ArrayList<String>();
 		String move;
 		Piece square;
-		
-		if (this.color == 'w') { 
+
+		if (this.color == 'w') {
 			// White
-			
+
 			// Moving forward
 			move = this.file + "" + (this.rank + 1);
 			try {
@@ -52,8 +52,8 @@ public class Pawn extends Piece {
 					}
 				}
 			} catch (IllegalFileRankException e) {}
-		} else { 
-			
+		} else {
+
 			// Moving forward
 			move = this.file + "" + (this.rank - 1);
 			try {
@@ -69,9 +69,9 @@ public class Pawn extends Piece {
 					}
 				}
 			} catch (IllegalFileRankException e) {}
-			
+
 		}
-		
+
 		return validMoves;
 	}
 
