@@ -13,7 +13,7 @@ public class Knight extends Piece {
 
 	/**
 	 * Constructor for Knight.
-	 * 
+	 *
 	 * @param color
 	 * @param file
 	 * @param rank
@@ -23,7 +23,7 @@ public class Knight extends Piece {
 		super(color, file, rank, board);
 		this.symbol = 'N';
 	}
-	
+
 
 	/* (non-Javadoc)
 	 * @see cs213.chess.pieces.Piece#getValidMoves()
@@ -32,60 +32,38 @@ public class Knight extends Piece {
 	public ArrayList<String> getValidMoves() {
 		ArrayList<String> validMoves = new ArrayList<String>();
 		String move;
-		
+
 		int downTwoRanks = this.rank - 2;
 		int downRank = this.rank - 1;
 		int upRank = this.rank + 1;
 		int upTwoRanks = this.rank + 2;
-		
+
 		char downTwoFiles = (char) (((int) this.file) - 2);
 		char downFile = (char) (((int) this.file) - 1);
 		char upFile = (char) (((int) this.file) + 1);
 		char upTwoFiles = (char) (((int) this.file) + 2);
-		
-		// Up one rank
-		move = downTwoFiles + "" + upRank;
-		if (isPossibleMove(move)) {
-			validMoves.add(move);
-		}
-		move = upTwoFiles + "" + upRank;
-		if (isPossibleMove(move)) {
-			validMoves.add(move);
-		}
-		
-		// Down one rank
-		move = downTwoFiles + "" + downRank;
-		if (isPossibleMove(move)) {
-			validMoves.add(move);
-		}
-		move = upTwoFiles + "" + downRank;
-		if (isPossibleMove(move)) {
-			validMoves.add(move);
-		}
-		
-		// Up one file
-		move = upFile + "" + downTwoRanks;
-		if (isPossibleMove(move)) {
-			validMoves.add(move);
-		}
-		move = upFile + "" + upTwoRanks;
-		if (isPossibleMove(move)) {
-			validMoves.add(move);
-		}
-		
-		// Down one file
-		move = downFile + "" + downTwoRanks;
-		if (isPossibleMove(move)) {
-			validMoves.add(move);
-		}
-		move = downFile + "" + upTwoRanks;
-		if (isPossibleMove(move)) {
-			validMoves.add(move);
-		}
-		
+
+		String[] candidateMoves = {
+            downTwoFiles + "" + upRank,
+            upTwoFiles + "" + upRank,
+            downTwoFiles + "" + downRank,
+            upTwoFiles + "" + downRank,
+            upFile + "" + downTwoRanks,
+            upFile + "" + upTwoRanks,
+            downFile + "" + downTwoRanks,
+            downFile + "" + upTwoRanks
+		};
+
+        for (int i = 0; i < candidateMoves.length; i++) {
+            move = candidateMoves[i];
+            if (isPossibleMove(move)) {
+                validMoves.add(move);
+            }
+        }
+
 		return validMoves;
 	}
-	
+
 	private boolean isPossibleMove(String move) {
 		Piece square;
 		try {
@@ -94,7 +72,7 @@ public class Knight extends Piece {
 		} catch (IllegalFileRankException e) {
 			return false;
 		}
-		
+
 	}
 
 }
