@@ -26,20 +26,16 @@ public class ChessCLI {
 		
 		Piece test = null;
 		try {
-			test = board.getPieceAt("h1");
-		} catch (IllegalFileRankException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		ArrayList<String> moves = test.getValidMoves();
-		if (moves.isEmpty()) {
-			System.out.println("No moves available for this piece.");
-		} else {
-			for (String move : moves) {
-				System.out.println(move);
+			test = board.getPieceAt("b2");
+			ArrayList<String> moves = test.getValidMoves();
+			if (moves.isEmpty()) {
+				System.out.println("No moves available for this piece.");
+			} else {
+				for (String move : moves) {
+					System.out.println(move);
+				}
 			}
-		}
-		
+		} catch (IllegalFileRankException e1) { e1.printStackTrace(); }
 		if (1 > 0) { return; }
 		
 		

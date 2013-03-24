@@ -68,7 +68,7 @@ public class Pawn extends Piece {
 						}
 					}
 				}
-			} catch (IllegalFileRankException e) {}
+			} catch (IllegalFileRankException e) {System.out.println("EXCEPTING");}
 
 		}
 

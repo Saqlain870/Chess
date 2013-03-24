@@ -26,8 +26,8 @@ public class Board {
 		// Place pawns
 		for	(int i = 0; i < this.pieces.length; i++) {
 			char file = (char) (((int) 'a') + i);
-			this.pieces[1][i] = new Pawn('w', file, 1, this);
-			this.pieces[6][i] = new Pawn('b', file, 6, this);
+			this.pieces[1][i] = new Pawn('w', file, 2, this);
+			this.pieces[6][i] = new Pawn('b', file, 7, this);
 		}
 		
 		// Place kings

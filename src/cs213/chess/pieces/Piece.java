@@ -101,7 +101,7 @@ public abstract class Piece {
 	 * @return Whether or not this piece has ever moved on the board.
 	 */
 	public boolean hasMoved() {
-		return this.timesMoved == 0;
+		return this.timesMoved > 0;
 	}
 	
 	public int incrementTimesMoved() {
