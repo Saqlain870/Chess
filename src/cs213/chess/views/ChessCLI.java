@@ -35,7 +35,11 @@ public class ChessCLI {
 			
 			String line;
 			try {
-				line = reader.readLine().trim();
+				line = reader.readLine();
+				if (line == null) {
+					continue;
+				}
+				line.trim();
 			} catch (IOException e) {
 				e.printStackTrace();
 				return;
