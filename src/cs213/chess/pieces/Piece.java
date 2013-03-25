@@ -207,11 +207,10 @@ public abstract class Piece {
 			try {
 				square = this.board.getPieceAt(move);
 				if (square != null) {
-					if (this.color == square.color) {
-						break;
-					} else {
+					if (square.color != this.color && (square.getClass() == Rook.class || square.getClass() == Queen.class) ) {
 						return true;
-					}
+					} 
+					break;
 				}
 			} catch (IllegalFileRankException e) {}
 		}
@@ -224,11 +223,10 @@ public abstract class Piece {
 			try {
 				square = this.board.getPieceAt(move);
 				if (square != null) {
-					if (this.color == square.color) {
-						break;
-					} else {
+					if (square.color != this.color && (square.getClass() == Rook.class || square.getClass() == Queen.class) ) {
 						return true;
-					}
+					} 
+					break;
 				}
 			} catch (IllegalFileRankException e) {}
 		}
@@ -240,11 +238,10 @@ public abstract class Piece {
 			try {
 				square = this.board.getPieceAt(move);
 				if (square != null) {
-					if (this.color == square.color) {
-						break;
-					} else {
+					if (square.color != this.color && (square.getClass() == Rook.class || square.getClass() == Queen.class) ) {
 						return true;
-					}
+					} 
+					break;
 				}
 			} catch (IllegalFileRankException e) {}
 		}
@@ -255,13 +252,11 @@ public abstract class Piece {
 			Piece square;
 			try {
 				square = this.board.getPieceAt(move);
-				square = this.board.getPieceAt(move);
 				if (square != null) {
-					if (this.color == square.color) {
-						break;
-					} else {
+					if (square.color != this.color && (square.getClass() == Rook.class || square.getClass() == Queen.class) ) {
 						return true;
-					}
+					} 
+					break;
 				}
 			} catch (IllegalFileRankException e) {}
 		}

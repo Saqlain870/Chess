@@ -1,9 +1,17 @@
 package cs213.chess.controls;
 
+import java.util.ArrayList;
+
 import cs213.chess.exceptions.IllegalCoordsException;
 import cs213.chess.exceptions.IllegalFileRankException;
 import cs213.chess.exceptions.IllegalMoveException;
-import cs213.chess.pieces.*;
+import cs213.chess.pieces.Bishop;
+import cs213.chess.pieces.King;
+import cs213.chess.pieces.Knight;
+import cs213.chess.pieces.Pawn;
+import cs213.chess.pieces.Piece;
+import cs213.chess.pieces.Queen;
+import cs213.chess.pieces.Rook;
 import cs213.chess.utils.Helper;
 
 /**
@@ -211,6 +219,21 @@ public class Board {
     }
     public boolean blackKingInDanger() {
     	return this.blackKing.inDanger();
+    }
+    
+    public void makeMove(String origin, String dest) throws IllegalMoveException, IllegalFileRankException {
+		Piece moving = getPieceAt(origin);
+		if (moving == null) {
+			throw new IllegalMoveException("There is no piece at this square");
+		}
+		ArrayList<String> legalMoves = moving.getLegalMoves();
+		if (legalMoves.contains(dest)) {
+			setPieceAt(dest, moving);
+			setPieceAt(origin, null);
+			moving.setFileRank(dest);
+		} else {
+			throw new IllegalMoveException("This piece cannot move there.");
+		}
     }
 	
 }

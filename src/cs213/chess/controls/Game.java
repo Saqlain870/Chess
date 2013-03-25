@@ -9,6 +9,7 @@ public class Game {
 
 	private Board board;
 	private char turn;
+	private boolean drawRequested;
 	
 	
 	/**
@@ -19,6 +20,7 @@ public class Game {
 	public Game() {
 		this.setBoard(new Board());
 		this.turn = 'w';
+		this.setDrawRequested(false);
 	}
 	
 	/**
@@ -57,6 +59,30 @@ public class Game {
 		this.board = board;
 	}
 	
+	/**
+	 * @return the drawRequested
+	 */
+	public boolean getDrawRequested() {
+		return drawRequested;
+	}
+
+	/**
+	 * @param drawRequested the drawRequested to set
+	 */
+	public void setDrawRequested(boolean drawRequested) {
+		this.drawRequested = drawRequested;
+	}
+
+	public boolean currentPlayerHasLegalMoves() {
+		Board board = this.board;
+//		
+//		for (int i = 0; i < board.length; i++) {
+//			for (int j = 0; j < board[i].length; j++) {
+//				
+//			}
+//		}
+		return true;
+	}
 
 	/**
 	 * Checks if the board is in either checkmate or stalemate, and determines
