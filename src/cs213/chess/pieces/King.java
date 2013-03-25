@@ -56,8 +56,27 @@ public class King extends Piece {
 		if (canQueenSideCastle()) {
 			validMoves.add("c" + this.rank);
 		}
+		
+		// Check for moves in surrounding squares
+		Piece square;
+		for (char i = this.prevFile(); i <= this.nextFile(); i = (char) (((int) i) + 1)) {
+			for (int j = this.prevRank(); j <= this.nextRank(); j++) {
+				if (i == this.file && j == this.rank) {
+					continue;
+				}
+				try {
+					String move = i + "" + j;
+					square = this.board.getPieceAt(move);
+					if (square == null || square.color != this.color) {
+						validMoves.add(move);
+					}
+				} catch (IllegalFileRankException e) {
+					continue;
+				}
+			}
+			
+		}
 
-		// TODO figure out the rest of it's legal moves
 		return validMoves;
 	}
 
