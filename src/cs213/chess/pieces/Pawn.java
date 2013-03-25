@@ -35,7 +35,6 @@ public class Pawn extends Piece {
 		Piece square;
 
 		String leftDiag, rightDiag;
-		Piece leftThreat, rightThreat;
 			
 		if (this.color == 'w') {
 			// White
@@ -80,7 +79,7 @@ public class Pawn extends Piece {
 						}
 					}
 				}
-			} catch (IllegalFileRankException e) {System.out.println("EXCEPTING");}
+			} catch (IllegalFileRankException e) {}
 
 		}
 		
