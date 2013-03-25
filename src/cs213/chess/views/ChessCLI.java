@@ -97,6 +97,7 @@ public class ChessCLI {
 		}
 		if (game.inCheckmate()) {
 			game.changeTurn();
+			System.out.println("Checkmate");
 			printWinner(game.getTurn());
 		} else if (game.inStalemate()) {
 			System.out.println("Stalemate");
