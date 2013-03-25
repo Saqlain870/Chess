@@ -38,7 +38,7 @@ public class Bishop extends Piece {
 		boolean downUp = true;
 		boolean downDown = true;
 
-		for (int i = 1; this.rank + i < 9; i++) {
+		for (int i = 1; this.rank + i <= 18; i++) {
 			char downFile = (char) (((int) this.file) - i);
 			char upFile = (char) (((int) this.file) + i);
 			int downRank = this.rank - i;

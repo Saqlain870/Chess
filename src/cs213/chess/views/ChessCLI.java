@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import cs213.chess.controls.Board;
 import cs213.chess.controls.Game;
+import cs213.chess.exceptions.IllegalColorException;
 import cs213.chess.exceptions.IllegalFileRankException;
 import cs213.chess.exceptions.IllegalMoveException;
 import cs213.chess.pieces.Piece;
@@ -20,33 +21,13 @@ public class ChessCLI {
 	/**
 	 * @param args
 	 */
-	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		Game game = new Game();
 		Board board = game.getBoard();
 		
-//		Piece test = null;
-//		try {
-//			test = board.getPieceAt("d1");
-//			System.out.println(test.inDanger());
-//		} catch (IllegalFileRankException e) {}
-////		try {
-////			test = board.getPieceAt("b2");
-////			ArrayList<String> moves = test.getValidMoves();
-////			if (moves.isEmpty()) {
-////				System.out.println("No moves available for this piece.");
-////			} else {
-////				for (String move : moves) {
-////					System.out.println(move);
-////				}
-////			}
-////		} catch (IllegalFileRankException e1) { e1.printStackTrace(); }
-//		if (1 > 0) { return; }
-		
 		boolean firstRun = true;
-		
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		while(true) {
+		while(game.isActive()) {
 			if (firstRun) {
 				printPrompt(game);
 				firstRun = false;
@@ -62,6 +43,7 @@ public class ChessCLI {
 			
 			// Check for resignation
 			if (line.equals("resign")) {
+				game.changeTurn();
 				printWinner(game.getTurn());
 				System.exit(0);
 			}
@@ -85,7 +67,7 @@ public class ChessCLI {
 			}
 			
 			try {
-				board.makeMove(tokens[0], tokens[1]);
+				board.makeMove(game.getTurn(), tokens[0], tokens[1]);
 				game.changeTurn();
 				printPrompt(game);
 			} catch (IllegalMoveException e) {
@@ -98,14 +80,26 @@ public class ChessCLI {
 						for (String move : legalMoves) {
 							System.out.println(chosen.getFileRank() + " " + move);
 						}
+						if (legalMoves.isEmpty()) {
+							System.out.println("(None)");
+						}
 						System.out.print(game.getTurn() == 'w' ? "White's move: " : "Black's move: ");
 					}
 				} catch (IllegalFileRankException e1) {}
 			} catch (IllegalFileRankException e) {
 				System.out.println("One or more of the FileRanks specified is invalid.");
 				System.out.print(game.getTurn() == 'w' ? "White's move: " : "Black's move: ");
+			} catch (IllegalColorException e) {
+				System.out.println("\n" + e.getMessage());
+				System.out.print(game.getTurn() == 'w' ? "White's move: " : "Black's move: ");
 			}
 			
+		}
+		if (game.inCheckmate()) {
+			game.changeTurn();
+			printWinner(game.getTurn());
+		} else if (game.inStalemate()) {
+			System.out.println("Stalemate");
 		}
 	}
 	
@@ -113,6 +107,9 @@ public class ChessCLI {
 			Board board = game.getBoard();
 			System.out.println();
 			System.out.println(board);
+			if (game.currentPlayerInCheck()) {
+				System.out.println("Check !");
+			}
 			System.out.print(game.getTurn() == 'w' ? "White's move: " : "Black's move: ");
 	}
 	

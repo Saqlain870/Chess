@@ -2,6 +2,7 @@ package cs213.chess.controls;
 
 import java.util.ArrayList;
 
+import cs213.chess.exceptions.IllegalColorException;
 import cs213.chess.exceptions.IllegalCoordsException;
 import cs213.chess.exceptions.IllegalFileRankException;
 import cs213.chess.exceptions.IllegalMoveException;
@@ -46,7 +47,7 @@ public class Board {
 		
 		// Place queens
 		this.pieces[0][3] = new Queen('w', 'd', 1, this);
-		this.pieces[7][3] = new Queen('b', 'd', 1, this);
+		this.pieces[7][3] = new Queen('b', 'd', 8, this);
 		
 		// Place bishops
 		this.pieces[0][2] = new Bishop('w', 'c', 1, this);
@@ -115,16 +116,6 @@ public class Board {
 		return display;
 	}
 	
-	
-	public boolean isInCheckmate(char turn) {
-		// TODO
-		return false;
-	}
-	
-	public boolean isInStalemate(char turn) {
-		// TODO
-		return false;
-	}
 	
 	/**
 	 * Gets the piece at a given File and Rank. 
@@ -221,19 +212,55 @@ public class Board {
     	return this.blackKing.inDanger();
     }
     
-    public void makeMove(String origin, String dest) throws IllegalMoveException, IllegalFileRankException {
+    public void makeMove(char playerColor, String origin, String dest) throws IllegalMoveException, IllegalFileRankException, IllegalColorException {
 		Piece moving = getPieceAt(origin);
 		if (moving == null) {
 			throw new IllegalMoveException("There is no piece at this square");
 		}
+		
+		if (moving.getColor() != playerColor) {
+			throw new IllegalColorException("This piece belongs to the other player");
+		}
+		
 		ArrayList<String> legalMoves = moving.getLegalMoves();
 		if (legalMoves.contains(dest)) {
+			handleCastling(moving, origin, dest);
 			setPieceAt(dest, moving);
 			setPieceAt(origin, null);
 			moving.setFileRank(dest);
+			moving.incrementTimesMoved();
 		} else {
 			throw new IllegalMoveException("This piece cannot move there.");
 		}
+    }
+    
+    public void handleCastling(Piece king, String origin, String dest) throws IllegalFileRankException {
+    	if (king.getClass() != King.class || king.hasMoved()) {
+    		return;
+    	}
+    	
+    	int diff = Math.abs( ((int) origin.charAt(0)) - ((int) dest.charAt(0)) );
+    	if (diff > 1) {
+	    	char kingFile = dest.charAt(0);
+	    	int rank = king.getRank();
+	    	String rookOrigin;
+	    	String rookDest;
+	    	Piece rook;
+	    	
+	    	if (kingFile == 'g') {
+	    		rookOrigin = "h" + rank;
+	    		rookDest = "f" + rank;
+	    	} else {
+	    		rookOrigin = "a" + rank;
+	    		rookDest = "d" + rank;
+	    	}
+	    	
+    		rook = getPieceAt(rookOrigin);
+	    	setPieceAt(rookOrigin, null);
+	    	setPieceAt(rookDest, rook);
+	    	rook.setFileRank(rookDest);
+    	}
+    	
     }
 	
 }

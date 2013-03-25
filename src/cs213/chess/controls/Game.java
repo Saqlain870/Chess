@@ -1,5 +1,7 @@
 package cs213.chess.controls;
 
+import cs213.chess.pieces.Piece;
+
 /**
  * 
  * @author Bilal Quadri
@@ -74,14 +76,17 @@ public class Game {
 	}
 
 	public boolean currentPlayerHasLegalMoves() {
-		Board board = this.board;
-//		
-//		for (int i = 0; i < board.length; i++) {
-//			for (int j = 0; j < board[i].length; j++) {
-//				
-//			}
-//		}
-		return true;
+		Piece[][] pieces = this.board.getPieces();
+		
+		for (int i = 0; i < pieces.length; i++) {
+			for (int j = 0; j < pieces[i].length; j++) {
+				Piece piece = pieces[i][j];
+				if (piece != null && piece.getColor() == this.turn && piece.canMove()) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -91,6 +96,19 @@ public class Game {
 	 * @return Whether or not the game is still ongoing.
 	 */
 	public boolean isActive() {
-		return (! (this.board.isInCheckmate(this.turn) || this.board.isInStalemate(this.turn)) );
+		return currentPlayerHasLegalMoves();
 	}
+	
+	public boolean currentPlayerInCheck() {
+		return (this.turn == 'w') ? this.board.whiteKingInDanger() : this.board.blackKingInDanger();
+	}
+	
+	public boolean inCheckmate() {
+		return (! isActive()) && currentPlayerInCheck();
+	}
+	
+	public boolean inStalemate() {
+		return ! (isActive() || currentPlayerInCheck());
+	}
+	
 }
