@@ -154,7 +154,6 @@ public class Board {
 	}
 
     public boolean testMove(String origin, String dest) throws IllegalMoveException {
-
         try {
             Piece temp = getPieceAt(dest);
             Piece moving = getPieceAt(origin);
@@ -176,6 +175,5 @@ public class Board {
             setPieceAt(dest, temp);
         } catch (IllegalFileRankException e) {}
     }
-    
 	
 }
