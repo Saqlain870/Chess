@@ -34,9 +34,15 @@ public class Pawn extends Piece {
 		String move;
 		Piece square;
 
+		String leftDiag, rightDiag;
+		Piece leftThreat, rightThreat;
+			
 		if (this.color == 'w') {
 			// White
 
+			leftDiag = this.prevFile() + "" + this.nextRank();
+			rightDiag = this.nextFile() + "" + this.nextRank();
+			
 			// Moving forward
 			move = this.file + "" + (this.rank + 1);
 			try {
@@ -52,8 +58,13 @@ public class Pawn extends Piece {
 					}
 				}
 			} catch (IllegalFileRankException e) {}
+			
+			
 		} else {
             // Black
+			
+			leftDiag = this.prevFile() + "" + this.prevRank();
+			rightDiag = this.nextFile() + "" + this.prevRank();
 
 			// Moving forward
 			move = this.file + "" + (this.rank - 1);
@@ -72,6 +83,20 @@ public class Pawn extends Piece {
 			} catch (IllegalFileRankException e) {System.out.println("EXCEPTING");}
 
 		}
+		
+		// Add diagonal moves for captures
+		try { 
+			square = this.board.getPieceAt(leftDiag);
+			if (square != null && square.color != this.color) {
+				validMoves.add(leftDiag);
+			}
+		} catch (IllegalFileRankException e) {}
+		try { 
+			square = this.board.getPieceAt(rightDiag);
+			if (square != null && square.color != this.color) {
+				validMoves.add(rightDiag);
+			}
+		} catch (IllegalFileRankException e) {}
 
 		return validMoves;
 	}
