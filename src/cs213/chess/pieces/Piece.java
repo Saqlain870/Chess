@@ -122,6 +122,10 @@ public abstract class Piece {
 		return Helper.filerankToCoords(this.file + "" + this.rank);
 	}
 	
+	/**
+	 * Gets the identifier for this piece. Represented as colorSymbol (e.g., wB means white bishop).
+	 * @return The identifier of this piece.
+	 */
 	public String getIdentifier() {
 		return this.color + "" + this.symbol;
 	}
@@ -134,10 +138,39 @@ public abstract class Piece {
 		this.file = file;
 	}
 	
+	/**
+	 * Gets all valid moves for a piece. Does not check if the king would be in danger afterwards.
+	 * 
+	 * @return An ArrayList of fileRanks.
+	 */
 	public abstract ArrayList<String> getValidMoves();
 
-	public boolean canMoveTo(String fileRank) {
-		return this.getValidMoves().contains(fileRank);
+	public ArrayList<String> getLegalMoves() {
+		ArrayList<String> candidateMoves = getValidMoves();
+		ArrayList<String> legalMoves = new ArrayList<String>();
+		
+		for (String move : candidateMoves) {
+			if (this.board.testMove(this.getFileRank(), move)) {
+				legalMoves.add(move);
+			}
+		}
+		return legalMoves;
+	}
+	
+	/**
+	 * Checks if this piece has any legal moves available right now.
+	 * 
+	 * @return boolean
+	 */
+	public boolean canMove() {
+		ArrayList<String> candidateMoves = getValidMoves();
+		
+		for (String move : candidateMoves) {
+			if (this.board.testMove(this.getFileRank(), move)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
     public boolean inDanger() {
@@ -166,6 +199,73 @@ public abstract class Piece {
     }
     
     public boolean inDangerFromStraights() {
+		// Detect horizontal moves going right
+		for (char f = this.file; f < 'h'; f++) {
+			char next = (char) (((int) f) + 1);
+			String move = next + "" + this.rank;
+			Piece square;
+			try {
+				square = this.board.getPieceAt(move);
+				if (square != null) {
+					if (this.color == square.color) {
+						break;
+					} else {
+						return true;
+					}
+				}
+			} catch (IllegalFileRankException e) {}
+		}
+
+		// Detect horizontal moves going left
+		for (char f = this.file; f > 'a'; f--) {
+			char prev = (char) (((int) f) - 1);
+			String move = prev + "" + this.rank;
+			Piece square;
+			try {
+				square = this.board.getPieceAt(move);
+				if (square != null) {
+					if (this.color == square.color) {
+						break;
+					} else {
+						return true;
+					}
+				}
+			} catch (IllegalFileRankException e) {}
+		}
+
+		//Detect vertical moves going up
+		for (int i = this.rank; i < 8; i++) {
+			String move = this.file + "" + (i + 1);
+			Piece square;
+			try {
+				square = this.board.getPieceAt(move);
+				if (square != null) {
+					if (this.color == square.color) {
+						break;
+					} else {
+						return true;
+					}
+				}
+			} catch (IllegalFileRankException e) {}
+		}
+
+		//Detect vertical moves going down
+		for (int i = this.rank; i > 1; i--) {
+			String move = this.file + "" + (i - 1);
+			Piece square;
+			try {
+				square = this.board.getPieceAt(move);
+				square = this.board.getPieceAt(move);
+				if (square != null) {
+					if (this.color == square.color) {
+						break;
+					} else {
+						return true;
+					}
+				}
+			} catch (IllegalFileRankException e) {}
+		}
+		
     	return false;
     }
     
