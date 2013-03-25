@@ -1,6 +1,7 @@
 package cs213.chess.controls;
 
 import cs213.chess.pieces.Piece;
+import cs213.chess.pieces.Queen;
 
 /**
  * 

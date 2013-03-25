@@ -24,6 +24,7 @@ public class Board {
 	private Piece[][] pieces;
 	private King whiteKing;
 	private King blackKing;
+	private Class promotionType;
 	
 	
 	/**
@@ -66,6 +67,20 @@ public class Board {
 		this.pieces[0][7] = new Rook('w', 'h', 1, this);
 		this.pieces[7][0] = new Rook('b', 'a', 8, this);
 		this.pieces[7][7] = new Rook('b', 'h', 8, this);
+	}
+
+	/**
+	 * @return the promotionType
+	 */
+	public Class getPromotionType() {
+		return promotionType;
+	}
+
+	/**
+	 * @param promotionType the promotionType to set
+	 */
+	public void setPromotionType(Class promotionType) {
+		this.promotionType = promotionType;
 	}
 
 	
@@ -140,10 +155,6 @@ public class Board {
 		this.pieces[coords[0]][coords[1]] = piece;
 	}
 
-	public void movePiece(String origin, String destination) throws IllegalMoveException {
-		// TODO
-	}
-	
 	public Piece getPieceAt(int i, int j) {
 		return this.pieces[i][j];
 	}
@@ -229,9 +240,34 @@ public class Board {
 			setPieceAt(origin, null);
 			moving.setFileRank(dest);
 			moving.incrementTimesMoved();
+			if (pawnDueForPromotion(moving)) {
+				Piece upgrade;
+				if (getPromotionType() == Rook.class){
+					upgrade = new Rook(moving.getColor(), moving.getFile(), moving.getRank(), this);
+				} else if (getPromotionType() == Bishop.class){
+					upgrade = new Bishop(moving.getColor(), moving.getFile(), moving.getRank(), this);
+				} else if (getPromotionType() == Knight.class){
+					upgrade = new Knight(moving.getColor(), moving.getFile(), moving.getRank(), this);
+				} else {
+					upgrade = new Queen(moving.getColor(), moving.getFile(), moving.getRank(), this);
+				}
+				setPieceAt(dest, upgrade);
+			}
 		} else {
 			throw new IllegalMoveException("This piece cannot move there.");
 		}
+    }
+    
+    private boolean pawnDueForPromotion(Piece piece) {
+    	if (piece.getClass() != Pawn.class) {
+    		return false;
+    	}
+    	
+    	return (
+			(piece.getColor() == 'w' && piece.getRank() == 8) || 
+			(piece.getColor() =='b' && piece.getRank() == 1)
+		);
+    		
     }
     
     public void handleCastling(Piece king, String origin, String dest) throws IllegalFileRankException {

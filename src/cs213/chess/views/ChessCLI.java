@@ -10,7 +10,7 @@ import cs213.chess.controls.Game;
 import cs213.chess.exceptions.IllegalColorException;
 import cs213.chess.exceptions.IllegalFileRankException;
 import cs213.chess.exceptions.IllegalMoveException;
-import cs213.chess.pieces.Piece;
+import cs213.chess.pieces.*;
 
 /**
  * @author Bilal Quadri
@@ -59,8 +59,23 @@ public class ChessCLI {
 			// Update draw request
 			game.setDrawRequested(line.endsWith("draw?"));
 			
+			
 			// Make move
 			String[] tokens = line.split(" ");
+			
+			if (tokens.length >= 3) {
+				String promotionType = tokens[2];
+				if (promotionType.equals("B")) {
+					board.setPromotionType(Bishop.class);
+				} else if (promotionType.equals("N")) {
+					board.setPromotionType(Knight.class);
+				} else if (promotionType.equals("R")) {
+					board.setPromotionType(Rook.class);
+				} else {
+					board.setPromotionType(Queen.class);
+				}
+			}
+			
 			if (tokens.length < 2) {
 				System.out.println("That is an invalid command. Please try again");
 				continue;
