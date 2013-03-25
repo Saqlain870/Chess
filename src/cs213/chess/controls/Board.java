@@ -166,18 +166,35 @@ public class Board {
 		return temp.inDanger();
 	}
 
-    public boolean testMove(String origin, String dest) throws IllegalMoveException {
+    public boolean testMove(String origin, String dest) {
+    	boolean legal = true;
         try {
             Piece temp = getPieceAt(dest);
             Piece moving = getPieceAt(origin);
+            
+            // Edge case for castling
+            if (moving.getClass() == King.class) {
+            	int currFile = (int) moving.getFile();
+            	int targetFile = (int) dest.charAt(0);
+            	int diff = Math.abs(targetFile - currFile);
+            	if (diff > 1) {
+            		return true;
+            	}
+            }
+            	
             moving.setFileRank(dest);
             setPieceAt(origin, null);
             setPieceAt(dest, moving);
+            if (moving.getColor() == 'w') {
+            	legal = ! whiteKingInDanger();
+            } else {
+            	legal = ! blackKingInDanger();
+            }
             undoTestMove(origin, dest, temp);
         } catch (IllegalFileRankException e) {
-            throw new IllegalMoveException("Cannot move from " + origin + " to " + dest);
+            return false;
         }
-        return false;
+        return legal;
     }
 
     public void undoTestMove(String origin, String dest, Piece temp) {
@@ -187,6 +204,13 @@ public class Board {
             setPieceAt(origin, movingBack);
             setPieceAt(dest, temp);
         } catch (IllegalFileRankException e) {}
+    }
+    
+    public boolean whiteKingInDanger() {
+    	return this.whiteKing.inDanger();
+    }
+    public boolean blackKingInDanger() {
+    	return this.blackKing.inDanger();
     }
 	
 }
