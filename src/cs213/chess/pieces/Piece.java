@@ -112,6 +112,11 @@ public abstract class Piece {
 	public String getFileRank(){
 		return this.file + "" + this.rank;
 	}
+
+    public void setFileRank(String fileRank) {
+        this.file = fileRank.charAt(0);
+        this.rank = Character.getNumericValue(fileRank.charAt(1));
+    }
 	
 	public int[] getCoords() throws IllegalFileRankException {
 		return Helper.filerankToCoords(this.file + "" + this.rank);
@@ -135,6 +140,110 @@ public abstract class Piece {
 		return this.getValidMoves().contains(fileRank);
 	}
 
+    public boolean inDanger() {
+    	
+		// Detect danger from knights
+		int downTwoRanks = this.rank - 2;
+		int downRank = this.rank - 1;
+		int upRank = this.rank + 1;
+		int upTwoRanks = this.rank + 2;
+
+		char downTwoFiles = (char) (((int) this.file) - 2);
+		char downFile = (char) (((int) this.file) - 1);
+		char upFile = (char) (((int) this.file) + 1);
+		char upTwoFiles = (char) (((int) this.file) + 2);
+
+		String[] candidateMoves = {
+            downTwoFiles + "" + upRank,
+            upTwoFiles + "" + upRank,
+            downTwoFiles + "" + downRank,
+            upTwoFiles + "" + downRank,
+            upFile + "" + downTwoRanks,
+            upFile + "" + upTwoRanks,
+            downFile + "" + downTwoRanks,
+            downFile + "" + upTwoRanks
+		};
+		
+		for (int i = 0; i < candidateMoves.length; i++) {
+			try {
+				Piece threat = this.board.getPieceAt(candidateMoves[i]);
+				if (threat != null && threat.getClass() == Knight.class && threat.color != this.color) {
+					return true;
+				}
+			} catch (IllegalFileRankException e) {
+				continue;
+			}
+		}
+		
+		// TODO: Detect danger from immediate diagonals
+		String leftDiag, rightDiag;
+		Piece leftThreat, rightThreat;
+		if (this.isWhite()) {
+			leftDiag = this.prevFile() + "" + this.nextRank();
+			rightDiag = this.nextFile() + "" + this.nextRank();
+		} else {
+			leftDiag = this.prevFile() + "" + this.prevRank();
+			rightDiag = this.nextFile() + "" + this.prevRank();
+		}
+		try {
+			leftThreat = this.board.getPieceAt(leftDiag);
+			if (leftThreat != null 
+				&& leftThreat.color != this.color
+				&& (
+					leftThreat.getClass() == King.class
+					|| leftThreat.getClass() == Bishop.class
+					|| leftThreat.getClass() == Pawn.class
+					|| leftThreat.getClass() == Queen.class
+					)
+				) {
+				return true;
+			}
+		} catch (IllegalFileRankException e) {}
+		try {
+			rightThreat = this.board.getPieceAt(rightDiag);
+			if (rightThreat != null 
+				&& rightThreat.color != this.color
+				&& (rightThreat.getClass() == King.class
+					|| rightThreat.getClass() == Bishop.class
+					|| rightThreat.getClass() == Pawn.class
+					|| rightThreat.getClass() == Queen.class
+				)) {
+				return true;
+			}
+		} catch (IllegalFileRankException e) {}
+		
+		// TODO: Detect danger from bishop
+		// TODO: Detect danger from king
+		// TODO: Detect danger from rook
+	    	
+    	return false;
+    }
+    
+    public boolean isWhite() {
+    	return this.color == 'w';
+    }
+    
+    public boolean isBlack() {
+    	return this.color == 'b';
+    }
+    
+    public char prevFile() {
+    	char prev = (char) (((int) this.file) - 1);
+    	return prev;
+    }
+    
+    public char nextFile() {
+    	char next = (char) (((int) this.file) + 1);
+    	return next;
+    }
+    
+    public int prevRank() {
+    	return this.rank - 1;
+    }
+    
+    public int nextRank() {
+    	return this.rank + 1;
+    }
 //	public abstract boolean canMoveTo(char rank, int file);
 	
 //	public abstract boolean canMoveTo(int i, int j);
