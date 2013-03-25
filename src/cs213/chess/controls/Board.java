@@ -130,6 +130,17 @@ public class Board {
 		return this.pieces[coords[0]][coords[1]];
 	}
 	
+    /**
+     * Sets a piece at a given file and rank.
+     *
+     * @param fileRank The position you want to set.
+     * @param piece The piece you want to put at the given position.
+     */
+	public void setPieceAt(String fileRank, Piece piece) throws IllegalFileRankException {
+		int[] coords = Helper.filerankToCoords(fileRank);
+		this.pieces[coords[0]][coords[1]] = piece;
+	}
+
 	public void movePiece(String origin, String destination) throws IllegalMoveException {
 		// TODO
 	}
@@ -141,5 +152,30 @@ public class Board {
 	public static boolean isInBounds(char file, int rank) {
 		return (file >= 'a' && file <= 'h' && rank >= 1 && rank <= 8);
 	}
+
+    public boolean testMove(String origin, String dest) throws IllegalMoveException {
+
+        try {
+            Piece temp = getPieceAt(dest);
+            Piece moving = getPieceAt(origin);
+            moving.setFileRank(dest);
+            setPieceAt(origin, null);
+            setPieceAt(dest, moving);
+            undoTestMove(origin, dest, temp);
+        } catch (IllegalFileRankException e) {
+            throw new IllegalMoveException("Cannot move from " + origin + " to " + dest);
+        }
+        return false;
+    }
+
+    public void undoTestMove(String origin, String dest, Piece temp) {
+        try {
+            Piece movingBack = getPieceAt(dest);
+            movingBack.setFileRank(origin);
+            setPieceAt(origin, movingBack);
+            setPieceAt(dest, temp);
+        } catch (IllegalFileRankException e) {}
+    }
+    
 	
 }

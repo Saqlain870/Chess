@@ -53,6 +53,7 @@ public class Pawn extends Piece {
 				}
 			} catch (IllegalFileRankException e) {}
 		} else {
+            // Black
 
 			// Moving forward
 			move = this.file + "" + (this.rank - 1);
