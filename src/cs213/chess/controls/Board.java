@@ -152,6 +152,19 @@ public class Board {
 	public static boolean isInBounds(char file, int rank) {
 		return (file >= 'a' && file <= 'h' && rank >= 1 && rank <= 8);
 	}
+	
+	/**
+	 * Detects whether or not an empty square is in danger
+	 * 
+	 * @param fileRank The file and rank of the square you want to check.
+	 */
+	public boolean emptySquareInDanger(String fileRank, char ownColor) {
+		if (ownColor != 'w' || ownColor != 'b') {
+			return false;
+		}
+		Piece temp = new Pawn(ownColor, fileRank.charAt(0), Character.getNumericValue(fileRank.charAt(1)), this);
+		return temp.inDanger();
+	}
 
     public boolean testMove(String origin, String dest) throws IllegalMoveException {
         try {
