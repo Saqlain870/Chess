@@ -142,7 +142,108 @@ public abstract class Piece {
 
     public boolean inDanger() {
     	
-		// Detect danger from knights
+    	if (inDangerFromEnemyKnights()) {
+    		return true;
+    	}
+		
+    	if (inDangerFromImmediateDiagonals()) {
+    		return true;
+    	}
+		
+		if (inDangerFromEnemyKing()) {
+			return true;
+		}
+		
+		if (inDangerFromDiagonals()) {
+			return true;
+		}
+		
+		if (inDangerFromStraights()) {
+			return true;
+		}
+	    	
+    	return false;
+    }
+    
+    public boolean inDangerFromStraights() {
+    	return false;
+    }
+    
+    public boolean inDangerFromDiagonals() {
+		boolean upUp = true;
+		boolean upDown = true;
+		boolean downUp = true;
+		boolean downDown = true;
+		for (int i = 1; this.rank + i < 9; i++) {
+			char downFile = (char) (((int) this.file) - i);
+			char upFile = (char) (((int) this.file) + i);
+			int downRank = this.rank - i;
+			int upRank = this.rank + i;
+			Piece square;
+			String move;
+
+			if (upUp) {
+				move = upFile + "" + upRank;
+				try {
+					square = this.board.getPieceAt(move);
+					if (square != null && square.color != this.color && (square.getClass() == Bishop.class || square.getClass() == Queen.class)) {
+						return true;
+					}
+					if (square != null) {
+						upUp = false;
+					}
+				} catch (IllegalFileRankException e) {
+					upUp = false;
+				}
+			}
+			if (upDown) {
+				move = upFile + "" + downRank;
+				try {
+					square = this.board.getPieceAt(move);
+					if (square != null && square.color != this.color && (square.getClass() == Bishop.class || square.getClass() == Queen.class)) {
+						return true;
+					}
+					if (square != null) {
+						upDown = false;
+					}
+				} catch (IllegalFileRankException e) {
+					upDown = false;
+				}
+			}
+			if (downUp) {
+				move = downFile + "" + upRank;
+				try {
+					square = this.board.getPieceAt(move);
+					if (square != null && square.color != this.color && (square.getClass() == Bishop.class || square.getClass() == Queen.class)) {
+						return true;
+					}
+					if (square != null) {
+						downUp = false;
+					}
+				} catch (IllegalFileRankException e) {
+					downUp = false;
+				}
+			}
+
+			if (downDown) {
+				move = downFile + "" + downRank;
+				try {
+					square = this.board.getPieceAt(move);
+					if (square != null && square.color != this.color && (square.getClass() == Bishop.class || square.getClass() == Queen.class)) {
+						return true;
+					}
+					if (square != null) {
+						downDown = false;
+					}
+				} catch (IllegalFileRankException e) {
+					downDown = false;
+				}
+			}
+		}
+    	return false;
+    }
+	
+	public boolean inDangerFromEnemyKnights() {
 		int downTwoRanks = this.rank - 2;
 		int downRank = this.rank - 1;
 		int upRank = this.rank + 1;
@@ -175,7 +276,10 @@ public abstract class Piece {
 			}
 		}
 		
-		// TODO: Detect danger from immediate diagonals
+		return false;
+	}
+	
+	public boolean inDangerFromImmediateDiagonals() {
 		String leftDiag, rightDiag;
 		Piece leftThreat, rightThreat;
 		if (this.isWhite()) {
@@ -185,6 +289,8 @@ public abstract class Piece {
 			leftDiag = this.prevFile() + "" + this.prevRank();
 			rightDiag = this.nextFile() + "" + this.prevRank();
 		}
+		
+		// Check left diagonal
 		try {
 			leftThreat = this.board.getPieceAt(leftDiag);
 			if (leftThreat != null 
@@ -199,6 +305,8 @@ public abstract class Piece {
 				return true;
 			}
 		} catch (IllegalFileRankException e) {}
+		
+		// Check right diagonal
 		try {
 			rightThreat = this.board.getPieceAt(rightDiag);
 			if (rightThreat != null 
@@ -212,11 +320,28 @@ public abstract class Piece {
 			}
 		} catch (IllegalFileRankException e) {}
 		
-		// TODO: Detect danger from bishop
-		// TODO: Detect danger from king
-		// TODO: Detect danger from rook
-	    	
-    	return false;
+		return false;
+	}
+    
+    public boolean inDangerFromEnemyKing() {
+		Piece possibleKing = null;
+		for (char i = this.prevFile(); i <= this.nextFile(); i = (char) (((int) i) + 1)) {
+			for (int j = this.prevRank(); j <= this.nextRank(); j++) {
+				if (i == this.file && j == this.rank) {
+					continue;
+				}
+				try {
+					String square = i + "" + j;
+					possibleKing = this.board.getPieceAt(square);
+					if (possibleKing != null && possibleKing.color != this.color && possibleKing.getClass() == King.class) {
+						return true;
+					}
+				} catch (IllegalFileRankException e) {
+					continue;
+				}
+			}
+		}
+		return false;
     }
     
     public boolean isWhite() {
@@ -244,8 +369,5 @@ public abstract class Piece {
     public int nextRank() {
     	return this.rank + 1;
     }
-//	public abstract boolean canMoveTo(char rank, int file);
-	
-//	public abstract boolean canMoveTo(int i, int j);
-	
+    
 }
