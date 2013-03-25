@@ -49,14 +49,6 @@ public class King extends Piece {
 	public ArrayList<String> getValidMoves() {
 		ArrayList<String> validMoves = new ArrayList<String>();
 
-		// Check for castling options
-		if (canKingSideCastle()) {
-			validMoves.add("g" + this.rank);
-		}
-		if (canQueenSideCastle()) {
-			validMoves.add("c" + this.rank);
-		}
-		
 		// Check for moves in surrounding squares
 		Piece square;
 		for (char i = this.prevFile(); i <= this.nextFile(); i = (char) (((int) i) + 1)) {
@@ -76,6 +68,15 @@ public class King extends Piece {
 			}
 			
 		}
+		
+		// Check for castling options
+		if (canKingSideCastle()) {
+			validMoves.add("g" + this.rank);
+		}
+		if (canQueenSideCastle()) {
+			validMoves.add("c" + this.rank);
+		}
+		
 
 		return validMoves;
 	}
@@ -93,7 +94,11 @@ public class King extends Piece {
 				return false;
 			}
 
-			// TODO: Check if f1/f8 and g1/g8 are in danger
+			// Check if f1/f8 and g1/g8 are in danger
+			if (this.board.emptySquareInDanger("f" + this.rank, this.color) 
+					|| this.board.emptySquareInDanger("g" + this.rank, this.color)) {
+				return false;
+			}
 
 			// The rook must be at the end and it cannot have moved
 			Piece rook = this.board.getPieceAt("h" + this.rank);
@@ -122,6 +127,10 @@ public class King extends Piece {
 			}
 
 			// TODO: Check if the c1/c8 and d1/d8 are in danger
+			if (this.board.emptySquareInDanger("c" + this.rank, this.color) 
+					|| this.board.emptySquareInDanger("d" + this.rank, this.color)) {
+				return false;
+			}
 
 			Piece rook = this.board.getPieceAt("a" + this.rank);
 			if (rook == null || rook.getClass() != Rook.class || rook.hasMoved()) {
@@ -133,5 +142,6 @@ public class King extends Piece {
 
 		return true;
 	}
+	
 
 }
