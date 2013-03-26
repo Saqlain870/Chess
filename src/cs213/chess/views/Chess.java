@@ -16,7 +16,7 @@ import cs213.chess.pieces.*;
  * @author Bilal Quadri
  *
  */
-public class ChessCLI {
+public class Chess {
 
 	/**
 	 * @param args

@@ -25,6 +25,7 @@ public class Board {
 	private King whiteKing;
 	private King blackKing;
 	private Class promotionType;
+	private String enPassantableSquare;
 	
 	
 	/**
@@ -32,6 +33,7 @@ public class Board {
 	 */
 	public Board() {
 		this.pieces = new Piece[8][8];
+		this.setEnPassantableSquare(null);
 		
 		// Place pawns
 		for	(int i = 0; i < this.pieces.length; i++) {
@@ -67,6 +69,20 @@ public class Board {
 		this.pieces[0][7] = new Rook('w', 'h', 1, this);
 		this.pieces[7][0] = new Rook('b', 'a', 8, this);
 		this.pieces[7][7] = new Rook('b', 'h', 8, this);
+	}
+
+	/**
+	 * @return the enPassantableSquare
+	 */
+	public String getEnPassantableSquare() {
+		return enPassantableSquare;
+	}
+
+	/**
+	 * @param enPassantableSquare the enPassantableSquare to set
+	 */
+	public void setEnPassantableSquare(String enPassantableSquare) {
+		this.enPassantableSquare = enPassantableSquare;
 	}
 
 	/**
@@ -238,6 +254,8 @@ public class Board {
 			handleCastling(moving, origin, dest);
 			setPieceAt(dest, moving);
 			setPieceAt(origin, null);
+			slayForEnPassant(moving, dest);
+			prepareForEnPassant(moving, dest);
 			moving.setFileRank(dest);
 			moving.incrementTimesMoved();
 			if (pawnDueForPromotion(moving)) {
@@ -256,6 +274,35 @@ public class Board {
 		} else {
 			throw new IllegalMoveException("This piece cannot move there.");
 		}
+    }
+    
+    private void slayForEnPassant(Piece moving, String dest) {
+    	if (enPassantableSquare != null && moving != null && moving.getClass() == Pawn.class) {
+    		if (dest.charAt(0) == enPassantableSquare.charAt(0)) {
+    			if (moving.getColor() == 'w') {
+    				if (moving.getRank() - Character.getNumericValue(dest.charAt(1)) != -1) {
+    					return;
+    				}
+    			} else if (moving.getColor() == 'b') {
+    				if (moving.getRank() - Character.getNumericValue(dest.charAt(1)) != 1) {
+    					return;
+    				}
+    			}
+    			try {
+					setPieceAt(enPassantableSquare, null);
+				} catch (IllegalFileRankException e) {}
+    		}
+    	}
+    }
+    
+    private void prepareForEnPassant(Piece moving, String dest) {
+    	int targetRank = Character.getNumericValue(dest.charAt(1));
+    	int diff = Math.abs(moving.getRank() - targetRank);
+    	if (moving.getClass() == Pawn.class && diff == 2) {
+    		setEnPassantableSquare(dest);
+    	} else {
+    		setEnPassantableSquare(null);
+    	}
     }
     
     private boolean pawnDueForPromotion(Piece piece) {

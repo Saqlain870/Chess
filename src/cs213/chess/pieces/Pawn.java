@@ -35,7 +35,11 @@ public class Pawn extends Piece {
 		Piece square;
 
 		String leftDiag, rightDiag;
-			
+		
+//		String leftPasserby, rightPasserby;
+//		leftPasserby = this.prevFile() + "" + this.rank;
+//		rightPasserby = this.nextFile() + "" + this.rank;
+		
 		if (this.color == 'w') {
 			// White
 
@@ -94,6 +98,19 @@ public class Pawn extends Piece {
 			square = this.board.getPieceAt(rightDiag);
 			if (square != null && square.color != this.color) {
 				validMoves.add(rightDiag);
+			}
+		} catch (IllegalFileRankException e) {}
+		
+		// Detect En Passant
+		try {
+			String epSquare = this.board.getEnPassantableSquare();
+			if (epSquare != null) {
+				Piece epTarget = this.board.getPieceAt(epSquare);
+				if (epTarget != null && this.rank == epTarget.getRank()) {
+					int epRank = (this.color == 'w') ? 6 : 3;
+					move = epTarget.getFile() + "" + epRank;
+					validMoves.add(move);
+				}
 			}
 		} catch (IllegalFileRankException e) {}
 
